@@ -39,12 +39,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     actor Player1
     actor Player2
     actor Player3
-    Player1->>Server
-    Server -->>Player2: Player1 opened ___
-    Server -->>Player3: Player1 opened ___
-    Player3->>Server
-    Server -->>Player1: Player3 opened  ___
-    Server -->>Player2: Player3 opened ___
+    Player1->>Server: Crimson Octane
+    Server -->>Player2: Player1 opened a Crimson Octane
+    Server -->>Player3: Player1 opened a Crimson Octane
+    Player3->>Server: Finny Wheels
+    Server -->>Player1: Player3 opened Finny Wheels
+    Server -->>Player2: Player3 opened Finny Wheels
+
 ```
 
 ### Key features
