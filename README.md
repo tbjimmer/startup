@@ -36,24 +36,15 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ```mermaid
     sequenceDiagram
-    actor You
-    actor Friend
-    You->>Server
-    Server -->>Friend: You opened:___
-    Friend->>Server
-    Server -->>You: Friend opened - ___
-
-    sequenceDiagram
-    actor Alice
-    actor Juan
-    actor Bud
-    Alice->>Server: Bud + 1
-    Server -->>Juan: Bud + 1
-    Server -->>Bud: Bud + 1
-    Juan->>Server: Alice + 1
-    Server -->>Bud: Alice + 1
-    Server -->>Alice: Alice + 1
-
+    actor Player1
+    actor Player2
+    actor Player3
+    Player1->>Server
+    Server -->>Player2: Player1 opened ___
+    Server -->>Player3: Player1 opened ___
+    Player3->>Server
+    Server -->>Player1: Player3 opened  ___
+    Server -->>Player2: Player3 opened ___
 ```
 
 ### Key features
