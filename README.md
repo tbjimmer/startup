@@ -36,14 +36,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ```mermaid
     sequenceDiagram
-    actor You
-    You->>Host
-    actor Friend
-    Host -->>Friend: You opened:___
-    Friend->>Host
-    Host -->>You: Friend opened - ___
-
-    sequenceDiagram
     actor Alice
     actor Juan
     actor Bud
