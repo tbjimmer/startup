@@ -38,10 +38,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 sequenceDiagram
     actor You
     actor Friend
-    You->Host
-    Host -->Friend: You opened:___
-    Friend->Host
-    Host -->You: Friend opened:___
+    You->>Host
+    Host -->>Friend: You opened:___
+    Friend->>Host
+    Host -->>You: Friend opened - ___
 ```
 
 ### Key features
