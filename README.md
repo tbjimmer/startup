@@ -19,14 +19,17 @@ A customizer of a weapon kit based on Splatoon 3's kit system. It allows for the
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
 - [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology
+- [ X ] A concise and compelling elevator pitch - short, sweet, and to the point
+- [ X ] Description of key features - I'm certain this list will change as I get more into the project
+- [ X ] Description of how you will use each technology - I'm unsure of how accurately my uses are, this will likely be updated later on
 - [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Let's say you are a Splatoon enjoyer (such as myself) and you think it would be fun to dream about a custom kit that Nintendo
+should add into the game as the weapon's third and final kit. That would be super fun to even test out in game, but that feature 
+does not yet exist, so we are going to build step one of that, and create a program that allows users to select from any of the 
+11 weapon types, 14 sub weapons, and 18 special weapons to construct their ultimate combo!
 
 ### Design
 
@@ -43,20 +46,22 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- HTTPS login
+- Wide variety of options from 3 categories
+- Ability to share the kit publically
+- Option to 'brand' the weapon
+- Change light/dark theme
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - 3 pages: login, weapon kit creation, and view public kits
+- **CSS** - Create a clean look for the site with a light and dark theme 
+- **React** - Affirms login, weapon change by selection, posts completed kit
+- **Service** - Backend service to confirm individual kits, post the kit, and retrieve other's posted kits
+- **DB/Login** - Login registry and hold all posted weapon kits
+- **WebSocket** - When finalized, the weapon and its associated kit are posted to the public page
 
 ## 🚀 AWS deliverable
 
