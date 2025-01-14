@@ -18,11 +18,11 @@ A mimicry of Rocket League's old crate opening system where a user earns one of 
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
+- [ X ] Proper use of Markdown
 - [ X ] A concise and compelling elevator pitch - short, sweet, and to the point
 - [ X ] Description of key features - I'm certain this list will change as I get more into the project
 - [ X ] Description of how you will use each technology - I'm unsure of how accurately my uses are, this will likely be updated later on
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [ X ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
@@ -39,13 +39,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     actor Player1
     actor Player2
     actor Player3
-    Player1->>Server: Crimson Octane
-    Server -->>Player2: Player1 opened a Crimson Octane
-    Server -->>Player3: Player1 opened a Crimson Octane
-    Player3->>Server: Finny Wheels
-    Server -->>Player1: Player3 opened Finny Wheels
-    Server -->>Player2: Player3 opened Finny Wheels
-
+    Player1->>Server: Open a Triumph crate
+    Server->>Player1: Samurai
+    Server -->>Player2: Player1 opened a Samurai
+    Server -->>Player3: Player1 opened a Samurai
+    Player3->Server: Open a Ferocity crate
+    Player3->>Server: Gale-Fire
+    Server -->>Player1: Player3 opened Gale-Fire
+    Server -->>Player2: Player3 opened Gale-Fire
 ```
 
 ### Key features
