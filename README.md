@@ -1,8 +1,8 @@
-# Splatoon Weapon Kit Maker
+# Rocket League Crate Simulator
 
 [My Notes](notes.md)
 
-A customizer of a weapon kit based on Splatoon 3's kit system. It allows for the selection of a main weapon alongside a sub weapon and a special ability.
+A mimicry of Rocket League's old crate opening system where a user earns one of many crates by playing the game, then may opt to purchase keys for $1 each in order to open any crate of choice. The crate then returns a random item. The probabilities are decided by each item's rarity.
 
 
 > [!NOTE]
@@ -26,10 +26,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-Let's say you are a Splatoon enjoyer (such as myself) and you think it would be fun to dream about a custom kit that Nintendo
-should add into the game as the weapon's third and final kit. That would be super fun to even test out in game, but that feature 
-does not yet exist, so we are going to build step one of that, and create a program that allows users to select from any of the 
-11 weapon types, 14 sub weapons, and 18 special weapons to construct their ultimate combo!
+As a big Rocket League enjoyer, I was rather distraught when Epic Games bought out Psyonix and changed the crate system to blueprints. Consequently the prices of the more expensive items skyrocketed rather than being worth the $1 key that you spent to open the crate. Although unable to return to those prime days of obtaining in-game items and decals, we can simulate opening crates to mimic the rush felt by opening the crates through a simple website.
 
 ### Design
 
@@ -40,28 +37,31 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ```mermaid
 sequenceDiagram
     actor You
-    actor Website
-    You->>Website: Replace this with your design
+    actor Friend
+    You->Host
+    Host -->Friend: You opened:___
+    Friend->Host
+    Host -->You: Friend opened:___
 ```
 
 ### Key features
 
 - HTTPS login
-- Wide variety of options from 3 categories
-- Ability to share the kit publically
-- Option to 'brand' the weapon
-- Change light/dark theme
+- Multiple crates to choose from
+- Opened crates return an item to a players account
+- All items opened by all players are displayed
+- Ability to see personal inventory of all opened items
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - 3 pages: login, weapon kit creation, and view public kits
-- **CSS** - Create a clean look for the site with a light and dark theme 
-- **React** - Affirms login, weapon change by selection, posts completed kit
-- **Service** - Backend service to confirm individual kits, post the kit, and retrieve other's posted kits
-- **DB/Login** - Login registry and hold all posted weapon kits
-- **WebSocket** - When finalized, the weapon and its associated kit are posted to the public page
+- **HTML** - Login, personal inventory, opening crate / public view 
+- **CSS** - Create a clean look for all, with emphasis on inventory and opening pages 
+- **React** - Affirms login, opens crate
+- **Service** - Backend service to update public recent openings live, calculate what each opened item will be
+- **DB/Login** - Login registry, personal inventory storage, and temporary public openings
+- **WebSocket** - When finalized, the opened item is shown to all players
 
 ## 🚀 AWS deliverable
 
