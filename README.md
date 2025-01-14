@@ -1,4 +1,4 @@
-# Your startup name here
+# Splatoon Weapon Kit Maker
 
 [My Notes](notes.md)
 
