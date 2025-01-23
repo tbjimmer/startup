@@ -7,6 +7,8 @@ A mimicry of Rocket League's old crate opening system where a user earns one of 
 IP: http://https://98.84.223.42
 Site: http://timmyr.click
 
+HTML links index (Home), play (Play), and scoreboard (Scoreboard) pages. Index is a simple login page requiring a username but no password. Play is where the crates are selected, amount is chosen, and session total for each rarity is displayed. It also shows live updates on what other players have pulled from their crates. Scoreboard displays the totals for each username and each of their crate rarities opened.
+
 > [!NOTE]
 <!-- >  This is a template for your startup application. You must modify this `README.md` file for each phase of your development. You only need to fill in the section for each deliverable when that deliverable is submitted in Canvas. Without completing the section for a deliverable, the TA will not know what to look for when grading your submission. Feel free to add additional information to each deliverable description, but make sure you at least have the list of rubric items and a description of what you did for each item.
 
@@ -52,19 +54,19 @@ Diagram of how a server request to open a crate returns the item to the player a
 
 - HTTPS login
 - Multiple crates to choose from
-- Opened crates return an item to a players account
-- All items opened by all players are displayed
-- Ability to see personal inventory of all opened items
+- All items opened by other players live is shown
+- Scoreboard totals for each rarity per player 
+- Several selectors/options that allow for a personalized game
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
 - **HTML** - Login, personal inventory, opening crate / public view 
-- **CSS** - Create a clean look for all, with emphasis on inventory and opening pages 
-- **React** - Affirms login, opens crate
+- **CSS** - Create a clean look for all, with emphasis on opening page
+- **React** - Affirms login, opens crate, allows for selections on menus
 - **Service** - Backend service to update public recent openings live, calculate what each opened item will be
-- **DB/Login** - Login registry, personal inventory storage, and temporary public openings
+- **DB/Login** - Login registry and temporary public openings
 - **WebSocket** - When finalized, the opened item is shown to all players
 
 ## 🚀 AWS deliverable
