@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Play</title>
 </head>
+<body>
 <header>
     <h1>
         Open Crates
     </h1>
 </header>
-<body>
         <fieldset>
             <label for="single">Single Crate</label>
             <input type="radio" id="single" name="crateMode" value="single" checked />
@@ -21,6 +21,14 @@
             <label for="range">Crates</label>
             <input type="range" name="varRange" id="range" min="0" max="100" step="1" value="0" />
             <output id="rangeOutput" for="range">0</output>
+        </div>
+        <div>
+            <label for="select">Select: </label>
+            <select id="select" name="varSelect">
+            <option>Impact Crate</option>
+            <option>Turbo Crate</option>
+            <option>Vindicator Crate</option>
+        </select>
         </div>
         <div>
             <p>
@@ -52,13 +60,11 @@
             </table>
         </div>
         <fieldset>
-            <p>
-                Player2 opened (Import) Samurai
-            </p>
-            <p>
-                Player2 opened (Very Rare) Bob's Ramen
-            </p>
+            <legend>Recent Crate Openings</legend>
+            <p>Player2 opened (Import) Samurai</p>
+            <p>Player2 opened (Very Rare) Bob's Ramen</p>
         </fieldset>
+        
         <p>
             <a href="index.html">Home</a>
             <a href="scoreboard.html">Scoreboard</a>
