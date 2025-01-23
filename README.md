@@ -7,7 +7,7 @@ A mimicry of Rocket League's old crate opening system where a user earns one of 
 IP: http://https://98.84.223.42
 Site: http://timmyr.click
 
-HTML links index (Home), play (Play), and scoreboard (Scoreboard) pages. Index is a simple login page requiring a username and password. Play is where the crates are selected, amount is chosen, and session total for each rarity is displayed. It also shows live updates on what other players have pulled from their crates. Scoreboard displays the totals for each username and each of their crate rarities opened.
+HTML links index (Home), play (Play), and scoreboard (Scoreboard) pages. Index is a simple login page requiring a username and password. Play is where the crates are selected, amount is chosen, and session total for each rarity is displayed. It also shows live updates on what other players have pulled from their crates. Scoreboard displays the totals for each username and each of their crate rarities opened. Placeholder image is set, and deployFiles exist.
 
 > [!NOTE]
 <!-- >  This is a template for your startup application. You must modify this `README.md` file for each phase of your development. You only need to fill in the section for each deliverable when that deliverable is submitted in Canvas. Without completing the section for a deliverable, the TA will not know what to look for when grading your submission. Feel free to add additional information to each deliverable description, but make sure you at least have the list of rubric items and a description of what you did for each item.
@@ -79,15 +79,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [X] **HTML pages** - I did complete this part of the deliverable - All 3 pages are set up nicely
+- [X] **Proper HTML element usage** - I did complete this part of the deliverable - Plenty of separators are used to make adding id and classes easy when doing css later on
+- [X] **Links** - I did complete this part of the deliverable - Links to all pages and GitHub are present
+- [X] **Text** - I did complete this part of the deliverable - Text is evident to provide clarity
+- [X] **3rd party API placeholder** - I did complete this part of the deliverable.
+- [X] **Images** - I did complete this part of the deliverable - One image is currently there. Just a placeholder for now
+- [X] **Login placeholder** - I did complete this part of the deliverable - Username and Password inputs don't yet function, but exist
+- [X] **DB data placeholder** - I did complete this part of the deliverable - Scoreboard will hold DB info
+- [X] **WebSocket placeholder** - I did complete this part of the deliverable - play.html will display live info
 
 ## 🚀 CSS deliverable
 
