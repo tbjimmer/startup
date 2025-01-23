@@ -62,7 +62,7 @@ Diagram of how a server request to open a crate returns the item to the player a
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Login, personal inventory, opening crate / public view 
+- **HTML** - Login, opening crate, scoreboard
 - **CSS** - Create a clean look for all, with emphasis on opening page
 - **React** - Affirms login, opens crate, allows for selections on menus
 - **Service** - Backend service to update public recent openings live, calculate what each opened item will be
