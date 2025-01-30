@@ -7,8 +7,14 @@
 }
 
 h1 {
-    font-size: 2rem; 
     white-space: nowrap; 
+    font-family: 'Bebas Neue', sans-serif;
+    text-transform: uppercase; 
+}
+
+h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    text-transform: uppercase;
 }
 
 .info {
@@ -21,14 +27,16 @@ h1 {
     color: rgb(57, 57, 57);
 }
 
-html, body {
+html, body{
     height: 100%;
 }
 
 body {
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to bottom, #ffffff, #555555);;
+    background: linear-gradient(to bottom, #ffffff, #555555);
+    font-family: 'Rubik', sans-serif;   
+    margin: 0; 
 }
 
 footer {
