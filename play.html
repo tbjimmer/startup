@@ -12,95 +12,112 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"> 
 </head>
 <body>
+    <!-- Header using Bootstrap -->
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 px-3 border-bottom border-dark border-3 rounded">
-        <a href="/" class="d-flex align-items-center col-auto mb-2 text-dark text-decoration-none">
+        <a href="/" class="d-flex align-items-center col-auto text-dark text-decoration-none">
             <div class="dominuslogo">
                 <img src="dominuslogo.jpg" alt="logo">  
             </div>
-            <h1>
-                CS 260 Startup
-            </h1>
+            <h1>CS 260 Startup</h1>
         </a>
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="index.html" class="nav-link px-2 link-dark">Home</a></li>
-                <li><a href="play.html" class="nav-link px-2 link-dark">Play</a></li>
-                <li><a href="scoreboard.html" class="nav-link px-2 link-dark">Scoreboard</a></li>
-                <li><a href="https://github.com/tbjimmer/startup" class="nav-link px-2 link-primary">GitHub</a></li>
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="index.html" class="nav-link px-2 link-dark">Home</a></li>
+            <li><a href="play.html" class="nav-link px-2 link-dark">Play</a></li>
+            <li><a href="scoreboard.html" class="nav-link px-2 link-dark">Scoreboard</a></li>
+            <li><a href="https://github.com/tbjimmer/startup" class="nav-link px-2 link-primary">GitHub</a></li>
+        </ul>
     </header>
 
+    <!-- Main content using CSS Grid -->
     <div class="info">
-        <h1>
-            Open Crates
-        </h1>
-        <fieldset>
-            <label for="single">Single Crate</label>
-            <input type="radio" id="single" name="crateMode" value="single" checked />
-            <label for="multiple">Multiple Crates</label>
-            <input type="radio" id="multiple" name="crateMode" value="multiple" />            
-        </fieldset>
-        <div>
-            <label for="range">Crates</label>
-            <input type="range" name="varRange" id="range" min="0" max="100" step="1" value="0" />
-            <output id="rangeOutput" for="range">0</output>
+        <h2>Open Crates</h2>
+
+        <!-- Grid Layout for the content -->
+        <div class="grid-container">
+            <!-- Crate Selection Section -->
+            <section class="crate-selection">
+                <fieldset>
+                    <label for="single">Single Crate</label>
+                    <input type="radio" id="single" name="crateMode" value="single" checked />
+                    <label for="multiple">Multiple Crates</label>
+                    <input type="radio" id="multiple" name="crateMode" value="multiple" />            
+                </fieldset>
+                <div>
+                    <label for="range">Crates</label>
+                    <input type="range" name="varRange" id="range" min="0" max="100" step="1" value="0" />
+                    <output id="rangeOutput" for="range">0</output>
+                </div>
+                <div>
+                    <label for="select">Select: </label>
+                    <select id="select" name="varSelect">
+                        <option>Accelerator Crate</option>
+                        <option>Impact Crate</option>
+                        <option>Turbo Crate</option>
+                        <option>Vindicator Crate</option>
+                    </select>
+                    <div>
+                        <img src="accelerator.jpg" alt="accelerator crate">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Session Info Section -->
+            <section class="session-info">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Session Total</th>
+                            <th>Rare</th>
+                            <th>Very Rare</th>
+                            <th>Import</th>
+                            <th>Exotic</th>
+                            <th>Black Market</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10</td>
+                            <td>6</td>
+                            <td>3</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Recent Openings Section -->
+            <section class="recent-openings">
+                <fieldset>
+                    <legend>Recent Crate Openings</legend>
+                    <p>Player2 opened (Import) Samurai</p>
+                    <p>Player2 opened (Very Rare) Bob's Ramen</p>
+                </fieldset>
+            </section>
+
+            <!-- Just Opened Section -->
+             <section class="just-opened">
+                <p>Singularity - Black Market</p>
+             </section>
         </div>
-        <div>
-            <label for="select">Select: </label>
-            <select id="select" name="varSelect">
-            <option>Accelerator Crate</option>
-            <option>Impact Crate</option>
-            <option>Turbo Crate</option>
-            <option>Vindicator Crate</option>
-        </select>
-        <div>
-            <img src="accelerator.jpg" alt="accelerator crate">
-        </div>
-        </div>
-        <div>
-            <p>
-                (Rare) Gale Fire
-            </p>
-        </div>
-        <div>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Session Total</th>
-                        <th>Rare</th>
-                        <th>Very Rare</th>
-                        <th>Import</th>
-                        <th>Exotic</th>
-                        <th>Black Market</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>10</td>
-                        <td>6</td>
-                        <td>3</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <fieldset>
-            <legend>Recent Crate Openings</legend>
-            <p>Player2 opened (Import) Samurai</p>
-            <p>Player2 opened (Very Rare) Bob's Ramen</p>
-        </fieldset>
-        
-        <div class="container">
-            <footer>
-            <ul class="nav justify-content-center border-bottom border-light border-2 pb-2 mb-2">
-                <li class="nav-item"><a href="index.html" class="nav-link px-2 text-light">Home</a></li>
-                <li class="nav-item"><a href="play.html" class="nav-link px-2 text-light">Play</a></li>
-                <li class="nav-item"><a href="scoreboard.html" class="nav-link px-2 text-light">Scoreboard</a></li>
-                <li class="nav-item"><a href="https://github.com/tbjimmer/startup" class="nav-link px-2 text-primary">GitHub</a></li>
-              </ul>
-              <p class="text-center text-black"> Tyler Brown&trade;</p>
-            </footer>
-          </div>
     </div>
+
+    <div class="container">
+        <footer>
+          <ul class="nav justify-content-center border-bottom border-light border-2 pb-2 mb-2">
+            <li class="nav-item"><a href="index.html" class="nav-link px-2 text-light">Home</a></li>
+            <li class="nav-item"><a href="play.html" class="nav-link px-2 text-light">Play</a></li>
+            <li class="nav-item"><a href="scoreboard.html" class="nav-link px-2 text-light">Scoreboard</a></li>
+            <li class="nav-item"><a href="https://github.com/tbjimmer/startup" class="nav-link px-2 text-primary">GitHub</a></li>
+          </ul>
+          <p class="text-center text-black"> Tyler Brown&trade;</p>
+        </footer>
+      </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" 
+                integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" 
+                crossorigin="anonymous">
+    </script>
 </body>
 </html>
