@@ -35,13 +35,14 @@ html, body{
 body {
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to bottom, #ffffff, #555555);
+    background: linear-gradient(to bottom, #ffffff 0%, #cccccc 50%, #888888 100%);
     margin: 0; 
     font-family: 'Rubik', sans-serif !important;
 }
 
 footer {
     margin-top: auto;
+    margin-bottom: 1rem;
 }
 
 .container {
