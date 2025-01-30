@@ -7,13 +7,23 @@
 }
 
 h1 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue', sans-serif !important;
     text-transform: uppercase; 
     margin: 0px 0px 0px 0px !important;
 }
 
 h2 {
     text-align: center;
+    font-family: 'Bebas Neue', sans-serif !important;
+    text-transform: uppercase;
+    font-size: 2.5em !important; 
+}
+
+.recent {
+    width: 71%;
+    font-size: 2em;
+    font-weight: 350;
+    border-bottom: 0.075em solid #343a40;
 }
 
 html, body {
@@ -84,6 +94,36 @@ footer {
     padding: 1% 1%; /* Adds padding for spacing */
     text-align: center;
     border: 1px solid #848484; /* Light border for separation */
+}
+
+.session-info th:nth-child(1) {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+.session-info th:nth-child(2) {
+    background-color: #343a40;
+    color: #5c7dff;
+}
+
+.session-info th:nth-child(3) {
+    background-color: #343a40;
+    color: #8800ff;
+}
+
+.session-info th:nth-child(4) {
+    background-color: #343a40;
+    color: #ff0000;
+}
+
+.session-info th:nth-child(5) {
+    background-color: #343a40;
+    color: #ffe600;
+}
+
+.session-info th:nth-child(6) {
+    background-color: #343a40;
+    color: #d300e2;
 }
 
 .session-info th {
