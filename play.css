@@ -17,7 +17,7 @@ h2 {
 }
 
 html, body {
-    height: 100%;
+    min-height: 100vh;
     margin: 0;
 }
 
@@ -57,6 +57,9 @@ footer {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     grid-column: 1;
     grid-row: 1 / span 2;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .session-info {
@@ -67,6 +70,29 @@ footer {
     grid-row: 1; 
     grid-column: 2;
     min-height: auto; 
+    font-size: 75%;
+}
+
+.session-info table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 7px;
+    height: 90%;
+}
+
+.session-info th, .session-info td {
+    padding: 1% 1%; /* Adds padding for spacing */
+    text-align: center;
+    border: 1px solid #848484; /* Light border for separation */
+}
+
+.session-info th {
+    background-color: #f4f4f4; /* Light background for header */
+    font-weight: bold;
+}
+
+.session-info td {
+    font-size: 1.5em;
 }
 
 .recent-openings {
@@ -79,13 +105,20 @@ footer {
 }
 
 .just-opened {
+    display: flex;
     background-color: #ffffff;
-    padding: 10px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     grid-column: 1; 
     grid-row: 3; 
-    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.opened {
+    margin: 0px;
 }
 
 table {
@@ -99,7 +132,12 @@ table th, table td {
 }
 
 @media (max-width: 768px) {
-    .grid-container {
-        grid-template-columns: 1fr;
+    .session-info th {
+        font-size: 0.4em;  /* Reduce font size */
     }
+    .just-opened {
+        font-size: 1em;
+        text-align: center;
+    }
+    
 }
