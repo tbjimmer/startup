@@ -8,6 +8,90 @@ Site: http://timmyr.click
 
 HTML links index (Home), play (Play), and scoreboard (Scoreboard) pages. Index is a simple login page requiring a username and password. Play is where the crates are selected, amount is chosen, and session total for each rarity is displayed. It also shows live updates on what other players have pulled from their crates. Scoreboard displays the totals for each username and each of their crate rarities opened. Placeholder image is set, and deployFiles exist.
 
+CSS creates a gradient background, places objects in a flex position, and in a grid on play.html. Everything is ordered properly on play.html in their respective grid boxes. Scoreboard table is centralized and allows reading it to be clear and easy. Bootstrap makes an identical and clean looking header and footer across all pages. Header includes project title and logo, which link back to the home page, and both header and footer link to all other pages, including github. Resizing the page isn't perfect, but works rather well for all devices and lets them all be properly functionable. All future pictures that will be used are now available.
+
+<!-- Crate items & rarities
+Accelerator
+(Rare) Pearlescent (Matte)
+(Rare) Critters
+(Rare) Splatter
+(Rare) Chainsaw
+(Rare) Gigapede
+(Very Rare) Gaiden
+(Very Rare) Hot Rocks
+(Very Rare) Lightning
+(Import) Jäger 619
+(Import) Power-Shot
+(Import) Saptarishi
+(Import) Snakeskin
+(Exotic) Clockwork
+(Exotic) Chrono
+(Black Market) Party Time
+(Black Market) Fireworks
+(Black Market) Hellfire
+(Black Market) Popcorn
+
+Impact
+(Rare) Staredown
+(Rare) Splashback
+(Rare) Windswept
+(Rare) Sundae
+(Very Rare) Masato
+(Very Rare) Burnout
+(Very Rare) Migraine
+(Very Rare) Reaper
+(Import) Twinzer
+(Import) Enchanter
+(Import) Cirrus
+(Exotic) Santa Fe
+(Exotic) Centro
+(Black Market) Atomizer
+(Black Market) Juiced
+(Black Market) Fire God
+(Black Market) Streamline
+
+Turbo
+(Rare) Heiwa
+(Rare) Kawaii
+(Rare) Griffon
+(Rare) Suji
+(Rare) Aqueous
+(Very Rare) Snakeskin
+(Very Rare) Xenosplash
+(Very Rare) Septem
+(Very Rare) Vector
+(Import) Furry
+(Import) Tachyon
+(Import) Endo
+(Exotic) Roulette
+(Exotic) Kalos
+(Black Market) 20XX
+(Black Market) Biomass
+(Black Market) Hexed
+(Black Market) Tora
+
+
+Vindicator
+(Rare) Abtruse
+(Rare) Ouchie
+(Rare) Edge Burst
+(Rare) Clodhopper
+(Rare) OR-AISE
+(Very Rare) Picket
+(Very Rare) Truncheon
+(Very Rare) Kana
+(Import) Apparatus
+(Import) Sentinel
+(Import) Ninja Star
+(Exotic) NeYoYo
+(Exotic) Creeper
+(Black Market) Shattered
+(Black Market) Glorifier
+(Black Market) Neuro-Agitator
+(Black Market) Intrudium
+
+ -->
+
 > [!NOTE]
 <!-- >  This is a template for your startup application. You must modify this `README.md` file for each phase of your development. You only need to fill in the section for each deliverable when that deliverable is submitted in Canvas. Without completing the section for a deliverable, the TA will not know what to look for when grading your submission. Feel free to add additional information to each deliverable description, but make sure you at least have the list of rubric items and a description of what you did for each item.
 
@@ -92,12 +176,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Header, footer, and main content body** - I did not complete this part of the deliverable.
-- [ ] **Navigation elements** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing** - I did not complete this part of the deliverable.
-- [ ] **Application elements** - I did not complete this part of the deliverable.
-- [ ] **Application text content** - I did not complete this part of the deliverable.
-- [ ] **Application images** - I did not complete this part of the deliverable.
+- [X] **Header, footer, and main content body** - I did complete this part of the deliverable.
+- [X] **Navigation elements** - I did complete this part of the deliverable.
+- [X] **Responsive to window resizing** - I did complete this part of the deliverable.
+- [X] **Application elements** - I did complete this part of the deliverable.
+- [X] **Application text content** - I did complete this part of the deliverable.
+- [X] **Application images** - I did complete this part of the deliverable.
 
 ## 🚀 React part 1: Routing deliverable
 
