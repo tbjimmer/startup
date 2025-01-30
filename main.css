@@ -1,18 +1,37 @@
-.dominuslogo img {
+.dominuslogo img{
     border-radius: 10%;
-    width: 128px;
+    width: 64px;
     height: auto;
-    padding: 5%;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+h1 {
+    font-size: 2rem; 
+    white-space: nowrap; 
 }
 
 .info {
     text-align: center;
 }
 
-label[for="username"],
-label[for="pass"] {
-    padding: 0.2%;
-    display: block; /* Ensures they are above the inputs */
+.info label {
+    display: block;
+    margin-top: 10px;
+    color: rgb(57, 57, 57);
 }
 
-button[for="]
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom, #ffffff, #555555);;
+}
+
+footer {
+    margin-top: auto;
+}
+
