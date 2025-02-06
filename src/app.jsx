@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
-import { Login } from './login/login';
+import { Login } from './home/home';
 import { Play } from './play/play';
 import { Scoreboard } from './scoreboard/scoreboard';
 
