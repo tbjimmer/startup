@@ -3,18 +3,16 @@ import React from 'react';
 
 export function Login() {
     return (
-        <div class="info">
+        <div className="info">
             <h2>
                 Rocket League Crate Opening Simulator
             </h2>
             <label for="username">Username: </label>
             <input type="text" id="username" name="vaUsername" required />
-            <br>
 
             <label for="pass">Password: </label>
             <input type="password" id="pass" name="vaPass" required />
-            <br>
-            <button type="button" class="btn btn-primary mt-1">Login</button>
+            <button type="button" className="btn btn-primary mt-1">Login</button>
         </div>
     );
 }
