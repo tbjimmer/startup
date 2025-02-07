@@ -1,9 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 .dominuslogo img{
     border-radius: 10%;
     width: 64px;
     height: auto;
     margin-right: 10px;
     margin-left: 10px;
+}
+
+.nav-link {
+    color: black !important; 
+}
+
+.nav-link.px-2.link-primary {
+    color: #007bff !important;  
+}
+
+.nav-link:hover {
+    color: #333 !important;  
 }
 
 h1 {
@@ -28,12 +43,12 @@ h2 {
     color: rgb(57, 57, 57);
 }
 
-html, .body{
+html, body{
     height: 100%;
     margin: 0;
 }
 
-.body {
+body {
     display: flex;
     flex-direction: column;
     background: linear-gradient(to bottom, #ffffff 0%, #cccccc 50%, #888888 100%);

@@ -6,12 +6,19 @@ export function Home() {
             <h2>
                 Rocket League Crate Opening Simulator
             </h2>
-            <label for="username">Username: </label>
-            <input type="text" id="username" name="vaUsername" required />
+            <div>
+                <label htmlFor="username">Username: </label>
+                <input type="text" id="username" name="vaUsername" required />
+            </div>
 
-            <label for="pass">Password: </label>
-            <input type="password" id="pass" name="vaPass" required />
-            <button type="button" className="btn btn-primary mt-1">Login</button>
+            <div>
+                <label htmlFor="pass">Password: </label>
+                <input type="password" id="pass" name="vaPass" required />
+            </div>
+            <br></br>
+            <div>
+                <button type="button" className="btn btn-primary mt-1">Login</button>
+            </div>
         </div>
     );
 }
