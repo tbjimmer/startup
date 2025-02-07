@@ -1,7 +1,6 @@
 import React from 'react';
-// import './login.css';
 
-export function Login() {
+export function Home() {
     return (
         <div className="info">
             <h2>

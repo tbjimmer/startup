@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
-import { Login } from './home/home';
+import { Home } from './home/home';
 import { Play } from './play/play';
 import { Scoreboard } from './scoreboard/scoreboard';
 
@@ -29,7 +29,7 @@ export default function App() {
             </header>
 
             <Routes>
-                <Route path='/' element={<Login />} exact />
+                <Route path='/' element={<Home />} exact />
                 <Route path='/play' element={<Play />} />
                 <Route path='/scores' element={<Scoreboard />} />
                 <Route path='*' element={<NotFound />} />
@@ -37,15 +37,20 @@ export default function App() {
 
             <div className="container">
                 <footer>
-                    <ul className="nav justify-content-center border-bottom border-light border-2 pb-2 mb-2">
-                        <li className="nav-item"><a href="index.html" className="nav-link px-2 text-light">Home</a></li>
-                        <li className="nav-item"><a href="play.html" className="nav-link px-2 text-light">Play</a></li>
-                        <li className="nav-item"><a href="scoreboard.html" className="nav-link px-2 text-light">Scoreboard</a></li>
-                        <li className="nav-item"><a href="https://github.com/tbjimmer/startup" className="nav-link px-2 text-primary">GitHub</a></li>
-                    </ul>
+                <menu className='nav-bar'>
+                    <li> <NavLink className='nav-link' to='home'>Home</NavLink> </li>
+                    <li> <NavLink className='nav-link' to='play'>Play</NavLink> </li>
+                    <li> <NavLink className='nav-link' to='scoreboard'>Scoreboard</NavLink> </li>
+                    <li><a href="https://github.com/tbjimmer/startup" className="nav-link px-2 link-primary">GitHub</a></li>
+                </menu>
                     <p className="text-center text-black"> Tyler Brown&trade;</p>
                 </footer>
             </div>
         </BrowserRouter>
     );
 }
+
+function NotFound() {
+    return <h2>404 - Page Not Found</h2>;
+}
+  

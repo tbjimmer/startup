@@ -1,4 +1,4 @@
-.dominuslogo img {
+/* .dominuslogo img {
     border-radius: 10%;
     width: 64px;
     height: auto;
@@ -26,12 +26,12 @@ h2 {
     border-bottom: 0.075em solid #343a40;
 }
 
-html, body {
+html, .body {
     min-height: 100vh;
     margin: 0;
 }
 
-body {
+.body {
     display: flex;
     flex-direction: column;
     background: linear-gradient(to bottom, #ffffff 0%, #cccccc 50%, #888888 100%);
@@ -42,7 +42,7 @@ body {
 footer {
     margin-top: auto;
     margin-bottom: auto;
-}
+} */
 
 .container {
     flex-grow: 1; 

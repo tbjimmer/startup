@@ -28,7 +28,7 @@ h2 {
     color: rgb(57, 57, 57);
 }
 
-html, body{
+html, .body{
     height: 100%;
     margin: 0;
 }

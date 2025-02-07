@@ -8,18 +8,18 @@ export function Play() {
             <div className="grid-container">
                 <section className="crate-selection">
                     <fieldset>
-                        <label for="single">Single Crate</label>
-                        <input type="radio" id="single" name="crateMode" value="single" checked />
-                        <label for="multiple">Multiple Crates</label>
+                        <label htmlFor="single">Single Crate</label>
+                        <input type="radio" id="single" name="crateMode" defaultChecked />
+                        <label htmlFor="multiple">Multiple Crates</label>
                         <input type="radio" id="multiple" name="crateMode" value="multiple" />            
                     </fieldset>
                     <div>
-                        <label for="range">Crates</label>
+                        <label htmlFor="range">Crates</label>
                         <input type="range" name="varRange" id="range" min="0" max="100" step="1" value="0" />
-                        <output id="rangeOutput" for="range">0</output>
+                        <output id="rangeOutput">0</output>
                     </div>
                     <div>
-                        <label for="select">Select: </label>
+                        <label htmlFor="select">Select: </label>
                         <select id="select" name="varSelect">
                             <option>Accelerator Crate</option>
                             <option>Impact Crate</option>
