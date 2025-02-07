@@ -12,7 +12,7 @@ import { Scoreboard } from './scoreboard/scoreboard';
 export default function App() {
     return(
         <BrowserRouter>
-            <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 px-3 border-bottom border-dark border-3 rounded">
+            <header className="d-flex flex-wrap align-items-center justify-content-md-between py-3 mb-4 px-3 border-bottom border-dark border-3 rounded">
                 <nav className = "d-flex align-items-center col-auto text-dark text-decoration-none">
                         <NavLink className='nav-item' to='home'>
                         <div id="logo" className="dominuslogo">
@@ -22,13 +22,14 @@ export default function App() {
                         <h1>
                             CS 260 Startup
                         </h1>
-                    <menu className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                </nav>
+                    <menu className="nav col-12 col-md-auto mb-2 justify-content-right mb-md-0">
                         <li> <NavLink className='nav-link' to='/'>Home</NavLink> </li>
                         <li> <NavLink className='nav-link' to='play'>Play</NavLink> </li>
                         <li> <NavLink className='nav-link' to='scoreboard'>Scoreboard</NavLink> </li>
                         <li><a href="https://github.com/tbjimmer/startup" className="nav-link px-2 link-primary">GitHub</a></li>
                     </menu>
-                </nav>
+                
             </header>
 
             <Routes>
