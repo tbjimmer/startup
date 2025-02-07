@@ -23,7 +23,7 @@ export default function App() {
                             CS 260 Startup
                         </h1>
                 </nav>
-                    <menu className="nav col-12 col-md-auto mb-2 justify-content-right mb-md-0">
+                    <menu className="nav col-md-auto mb-3 justify-content-right">
                         <li> <NavLink className='nav-link' to='/'>Home</NavLink> </li>
                         <li> <NavLink className='nav-link' to='play'>Play</NavLink> </li>
                         <li> <NavLink className='nav-link' to='scoreboard'>Scoreboard</NavLink> </li>
