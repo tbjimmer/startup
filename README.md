@@ -10,6 +10,8 @@ HTML links index (Home), play (Play), and scoreboard (Scoreboard) pages. Index i
 
 CSS creates a gradient background, places objects in a flex position, and in a grid on play.html. Everything is ordered properly on play.html in their respective grid boxes. Scoreboard table is centralized and allows reading it to be clear and easy. Bootstrap makes an identical and clean looking header and footer across all pages. Header includes project title and logo, which link back to the home page, and both header and footer link to all other pages, including github. Resizing the page isn't perfect, but works rather well for all devices and lets them all be properly functionable. All future pictures that will be used are now available.
 
+Converted things as best I could to .jsx files instead of .html. I kept them for reference, but they are not used in anything. My main issues involve the header and footer always being fickle, and I regret mixing so much Bootstrap with CSS. Overall, the project is fully functional on all devices, but breaks when put to the extremes. Everything works as intended.
+
 <!-- Crate items & rarities
 Accelerator
 (Rare) Pearlescent (Matte)
@@ -187,9 +189,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Bundled using Vite** - I did not complete this part of the deliverable.
-- [ ] **Components** - I did not complete this part of the deliverable.
-- [ ] **Router** - Routing between login and voting components.
+- [X] **Bundled using Vite** - I did complete this part of the deliverable.
+- [X] **Components** - I not complete this part of the deliverable.
+- [X] **Router** - Routes between all three pages
 
 ## 🚀 React part 2: Reactivity
 
