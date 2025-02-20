@@ -1,10 +1,45 @@
 import React from 'react';
+import React, { useState } from 'react';
 import './play.css';
 
 export function Play() {
+
+    const [crateCount, setCrateCount] = useState(1);
+    const [results, setResults] = useState([]);
+
+    const rarityOdds = [
+        { rarity: 'Rare', chance: 55 }, 
+        { rarity: 'Very Rare', chance: 28 },
+        { rarity: 'Import', chance: 12 },
+        { rarity: 'Exotic', chance: 4 },
+        { rarity: 'Black Market', chance: 1 }
+    ];
+
+    const getRandomRarity = () => {
+        const randomNum = Math.random() * 100;
+        let cumulativeChance = 0;
+
+        for (const { rarity, chance } of rarityOdds) {
+            cumulativeChance += chance;
+            if (randomNum <= cumulativeChance) {
+                return rarity;
+            }
+        }
+    };
+
+    const openCrates = (count) => {
+        const newResults = [];
+        for (let i = 0; i < count; i++) {
+            const rarity = getRandomRarity();
+            newResults.push(rarity);
+        }
+        setResults((prevResults) => [...prevResults, ...newResults]);
+    };
+
     return (
         <div className="info">
             <h2>Open Crates</h2>
+
             <div className="grid-container">
                 <section className="crate-selection">
                     <fieldset>
@@ -15,8 +50,18 @@ export function Play() {
                     </fieldset>
                     <div>
                         <label htmlFor="range">Crates</label>
-                        <input type="range" name="varRange" id="range" min="0" max="100" step="1" value="0" />
-                        <output id="rangeOutput">0</output>
+                        <input 
+                            type="range" 
+                            name="varRange" 
+                            id="range" 
+                            min="1" 
+                            max="100" 
+                            step="1" 
+                            value={crateCount} 
+                            onChange={(e) => setCrateCount(Number(e.target.value))}
+                        />
+                        <output id="rangeOutput">{crateCount}</output>
+
                     </div>
                     <div>
                         <label htmlFor="select">Select: </label>
@@ -45,12 +90,13 @@ export function Play() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>10</td>
-                                <td>6</td>
-                                <td>3</td>
-                                <td>1</td>
-                                <td>0</td>
-                                <td>0</td>
+                                <td>{results.length}</td>
+                                <td>{results.filter(r => r === 'Rare').length}</td>
+                                <td>{results.filter(r => r === 'Very Rare').length}</td>
+                                <td>{results.filter(r => r === 'Import').length}</td>
+                                <td>{results.filter(r => r === 'Exotic').length}</td>
+                                <td>{results.filter(r => r === 'Black Market').length}</td>
+
                             </tr>
                         </tbody>
                     </table>
