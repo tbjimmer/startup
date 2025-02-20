@@ -48,6 +48,15 @@ export function Play() {
         }
     };    
 
+    const rarityColors = {
+        "Rare": "#5c7dff",       
+        "Very Rare": "#8800ff",    
+        "Import": "#ff0000",       
+        "Exotic": "#ffe600",      
+        "Black Market": "#d300e2"  
+    };
+    
+
     const getRandomItem = (crate, rarity) => {
         const items = crateItems[crate][rarity];
         return items[Math.floor(Math.random() * items.length)]; // Random item from rarity
@@ -68,22 +77,21 @@ export function Play() {
 
     const openCrates = async (count) => {
         const crate = selectedCrate; // Use state
-        const newResults = [];
+        let newResults = [];
     
         for (let i = 0; i < count; i++) {
-            await new Promise(resolve => setTimeout(resolve, 100)); // Delay animation
+            await new Promise(resolve => setTimeout(resolve, 50)); // Add 50ms delay
     
             const rarity = getRandomRarity();
             const item = getRandomItem(crate, rarity);
             const result = `${rarity} - ${item}`;
     
-            newResults.push(result);
+            // Update the results **incrementally** (adds real-time animation)
+            setSessionResults(prev => [...prev, result]);
+            setRecentResults(prev => [result, ...prev].slice(0, 5)); // Keep only the most recent 5
         }
-    
-        // Update state only once after the loop
-        setSessionResults(prev => [...prev, ...newResults]);
-        setRecentResults(prev => [...newResults, ...prev].slice(0, 5)); // Keep top 5
     };
+    
     
     
 
