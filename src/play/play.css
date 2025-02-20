@@ -80,13 +80,11 @@ footer {
     margin-bottom: 10px;
 }
 
-/* Hide crate slider unless "Multiple Crates" is selected */
 .crate-slider {
     display: none;
     text-align: center;
 }
 
-/* When multiple mode is active, show the crate slider */
 .crate-slider.active {
     display: block;
 }
@@ -110,9 +108,9 @@ footer {
 }
 
 .session-info th, .session-info td {
-    padding: 1% 1%; /* Adds padding for spacing */
+    padding: 1% 1%; 
     text-align: center;
-    border: 1px solid #848484; /* Light border for separation */
+    border: 1px solid #848484; 
 }
 
 .session-info th:nth-child(1) {
@@ -146,7 +144,7 @@ footer {
 }
 
 .session-info th {
-    background-color: #f4f4f4; /* Light background for header */
+    background-color: #f4f4f4; 
     font-weight: bold;
 }
 
@@ -191,16 +189,16 @@ table th, table td {
 }
 
 .picture-box img {
-    width: 164px;  /* Match the smaller crates */
-    height: 164px; /* Ensure uniform height */
-    object-fit: contain; /* Maintain aspect ratio without stretching */
+    width: 164px; 
+    height: 164px; 
+    object-fit: contain; 
     display: block;
     margin: auto;
 }
 
 @media (max-width: 768px) {
     .session-info th {
-        font-size: 0.4em;  /* Reduce font size */
+        font-size: 0.4em; 
     }
     .just-opened {
         font-size: 1em;
