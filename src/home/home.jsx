@@ -37,7 +37,7 @@ export function Home() {
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)} 
             />
-
+            <br></br>
             <button 
                 type="button" 
                 className="btn btn-primary mt-1" 
