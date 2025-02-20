@@ -83,13 +83,13 @@ export function Play() {
     
         // Ensure leaderboard is always an array
         if (!Array.isArray(leaderboard)) {
-            leaderboard = []; // Reset to an empty array if corrupted
+            leaderboard = []; // Reset to an empty array if broken
         }
     
         // Find the player's entry in the leaderboard
         let playerIndex = leaderboard.findIndex(entry => entry.username === username);
     
-        // If user doesn't exist in the leaderboard, create a new entry
+        // Create a new entry if user doesn't exist
         if (playerIndex === -1) {
             leaderboard.push({
                 username,
