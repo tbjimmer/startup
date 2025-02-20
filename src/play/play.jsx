@@ -76,21 +76,30 @@ export function Play() {
     };
 
     const openCrates = async (count) => {
-        const crate = selectedCrate; // Use state
-        let newResults = [];
+        const crate = selectedCrate;
+        const newResults = [];
+        let updatedStats = JSON.parse(localStorage.getItem('leaderboard')) || { total: 0, Rare: 0, 'Very Rare': 0, Import: 0, Exotic: 0, 'Black Market': 0 };
     
         for (let i = 0; i < count; i++) {
-            await new Promise(resolve => setTimeout(resolve, 50)); // Add 50ms delay
-    
+            await new Promise(resolve => setTimeout(resolve, 50)); // Delay for animation
+            
             const rarity = getRandomRarity();
             const item = getRandomItem(crate, rarity);
             const result = `${rarity} - ${item}`;
     
-            // Update the results **incrementally** (adds real-time animation)
+            newResults.push(result);
             setSessionResults(prev => [...prev, result]);
-            setRecentResults(prev => [result, ...prev].slice(0, 5)); // Keep only the most recent 5
+            setRecentResults(prev => [result, ...prev].slice(0, 5)); 
+    
+            // Update leaderboard stats
+            updatedStats.total += 1;
+            updatedStats[rarity] += 1;
         }
+    
+        localStorage.setItem('leaderboard', JSON.stringify(updatedStats)); // Save stats locally
+        setLeaderboard(updatedStats); // Update UI dynamically
     };
+    
     
     
     
@@ -202,17 +211,28 @@ export function Play() {
                 </section>
 
                 <section className="recent-openings">
-                    <fieldset>
-                        <legend className="recent">Recent Crate Openings</legend>
-                        {recentResults.map((result, i) => (
-                            <p key={i}>You opened ({result})</p>
-                        ))}
-                    </fieldset>
+                <fieldset>
+                    <legend className="recent">Recent Crate Openings</legend>
+                    {recentResults.map((result, i) => {
+                        const rarity = result.split(" - ")[0]; // Extract rarity from result
+                        return (
+                            <p key={i} style={{ color: rarityColors[rarity] }}>
+                                You opened ({result})
+                            </p>
+                        );
+                    })}
+                </fieldset>
                 </section>
 
                 <section className="just-opened">
-                    <p className="opened">{recentResults.length > 0 ? recentResults[0] : 'Open a crate!'}</p>
+                    <p 
+                        className="opened" 
+                        style={{ color: recentResults.length > 0 ? rarityColors[recentResults[0].split(" - ")[0]] : "black" }}
+                    >
+                        {recentResults.length > 0 ? recentResults[0] : 'Open a crate!'}
+                    </p>
                 </section>
+
 
             </div>
         </div>
