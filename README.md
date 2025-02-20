@@ -12,6 +12,8 @@ CSS creates a gradient background, places objects in a flex position, and in a g
 
 Converted things as best I could to .jsx files instead of .html. I kept them for reference, but they are not used in anything. My main issues involve the header and footer always being fickle, and I regret mixing so much Bootstrap with CSS. Overall, the project is fully functional on all devices, but breaks when put to the extremes. Everything works as intended.
 
+Added live updates to the opening of crates. Password does not matter, only username is needed, and it attatches a personal scoreboard to the user. Any opened crate is stored in the scoreboard map as well as showing the most recent openings and the just opened crate. Scoreboard updates live (as far as I can tell) and displays the amount of opened crates in a descending order of amount opened. Events update the recent opening, the scoreboards, swap the crate image depending on which crate is selected, and allows for multiple opening button to reveal a slider which determines how many crates to open at once. 
+
 <!-- Crate items & rarities
 Accelerator
 (Rare) Pearlescent (Matte)
@@ -197,8 +199,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [X] **All functionality implemented or mocked out** - I did complete this part of the deliverable.
+- [X] **Hooks** - I did complete this part of the deliverable.
 
 ## 🚀 Service deliverable
 

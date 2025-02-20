@@ -4,20 +4,18 @@ import './scoreboard.css';
 export function Scoreboard() {
     const [leaderboard, setLeaderboard] = useState([]);
 
-    // Function to load leaderboard data
     const loadLeaderboard = () => {
         const updatedData = JSON.parse(localStorage.getItem('leaderboard')) || [];
 
-        // Sort by total crates opened in descending order
         updatedData.sort((a, b) => b.totalCrates - a.totalCrates);
 
         setLeaderboard(updatedData);
     };
 
     useEffect(() => {
-        loadLeaderboard(); // Load immediately on component mount
+        loadLeaderboard(); 
 
-        // Listen for storage changes (triggers immediately when localStorage updates)
+        // Check for local storage changes
         const handleStorageChange = () => {
             loadLeaderboard();
         };

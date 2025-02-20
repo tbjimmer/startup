@@ -3,11 +3,10 @@ import './play.css';
 
 export function Play() {
     const [crateCount, setCrateCount] = useState(1);
-    const [crateMode, setCrateMode] = useState("single"); // Initialize crate mode properly
+    const [crateMode, setCrateMode] = useState("single");
     const [sessionResults, setSessionResults] = useState([]); 
     const [recentResults, setRecentResults] = useState([]);
     const [selectedCrate, setSelectedCrate] = useState("Accelerator");
-
 
     const rarityOdds = [
         { rarity: 'Rare', chance: 55 },
@@ -72,7 +71,7 @@ export function Play() {
                 return rarity;
             }
         }
-        return rarityOdds[0].rarity; // Default fallback
+        return rarityOdds[0].rarity;
     };
 
     const openCrates = async (count) => {
@@ -80,7 +79,6 @@ export function Play() {
         const newResults = [];
         const username = localStorage.getItem('username') || "Guest"; // Ensure username is set
     
-        // Retrieve leaderboard and ensure it's an array
         let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
     
         // Ensure leaderboard is always an array
@@ -137,7 +135,7 @@ export function Play() {
     };
 
     const handleCrateChange = (event) => {
-        setSelectedCrate(event.target.value); // No need to replace "Crate"
+        setSelectedCrate(event.target.value);
     };
 
     return (
@@ -237,7 +235,7 @@ export function Play() {
                 <fieldset>
                     <legend className="recent">Recent Crate Openings</legend>
                     {recentResults.map((result, i) => {
-                        const rarity = result.split(" - ")[0]; // Extract rarity from result
+                        const rarity = result.split(" - ")[0]; // Pull out the rarity from result
                         return (
                             <p key={i} style={{ color: rarityColors[rarity] }}>
                                 You opened ({result})
