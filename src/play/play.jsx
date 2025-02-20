@@ -78,16 +78,32 @@ export function Play() {
     const openCrates = async (count) => {
         const crate = selectedCrate;
         const newResults = [];
+        const username = localStorage.getItem('username') || "Guest"; // Ensure username is set
     
-        // Retrieve the leaderboard or initialize it properly
-        let updatedStats = JSON.parse(localStorage.getItem('leaderboard')) || {
-            total: 0,
-            Rare: 0,
-            'Very Rare': 0,
-            Import: 0,
-            Exotic: 0,
-            'Black Market': 0
-        };
+        // Retrieve leaderboard and ensure it's an array
+        let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+    
+        // Ensure leaderboard is always an array
+        if (!Array.isArray(leaderboard)) {
+            leaderboard = []; // Reset to an empty array if corrupted
+        }
+    
+        // Find the player's entry in the leaderboard
+        let playerIndex = leaderboard.findIndex(entry => entry.username === username);
+    
+        // If user doesn't exist in the leaderboard, create a new entry
+        if (playerIndex === -1) {
+            leaderboard.push({
+                username,
+                totalCrates: 0,
+                Rare: 0,
+                'Very Rare': 0,
+                Import: 0,
+                Exotic: 0,
+                'Black Market': 0
+            });
+            playerIndex = leaderboard.length - 1; // Update index
+        }
     
         for (let i = 0; i < count; i++) {
             if (crateMode === "multiple") {
@@ -102,13 +118,16 @@ export function Play() {
             setSessionResults(prev => [...prev, result]);
             setRecentResults(prev => [result, ...prev].slice(0, 5));
     
-            // Update leaderboard stats
-            updatedStats.total += 1;
-            updatedStats[rarity] += 1;
+            // Update the player's stats in the leaderboard
+            leaderboard[playerIndex].totalCrates += 1;
+            leaderboard[playerIndex][rarity] += 1;
         }
     
-        localStorage.setItem('leaderboard', JSON.stringify(updatedStats)); // Save stats locally
+        // Save the updated leaderboard to localStorage
+        localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
     };
+    
+    
     
     const handleCrateModeChange = (event) => {
         setCrateMode(event.target.value);

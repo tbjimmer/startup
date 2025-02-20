@@ -7,22 +7,22 @@ export function Home() {
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        if (username.trim() && password.trim()) {
+        if (username.trim() && password.trim()) { 
             localStorage.setItem('username', username);
-            navigate('/play');
+            navigate('/play');  // Redirect to play page
         } else {
-            alert('Please enter both username and password.');
+            alert('Please enter both a username and a password.');
         }
     };
 
     return (
         <div className="info">
             <h2>Rocket League Crate Opening Simulator</h2>
+            
             <label htmlFor="username">Username:</label>
             <input 
                 type="text" 
                 id="username" 
-                name="vaUsername" 
                 required 
                 value={username} 
                 onChange={(e) => setUsername(e.target.value)} 
@@ -32,12 +32,12 @@ export function Home() {
             <input 
                 type="password" 
                 id="pass" 
-                name="vaPass" 
                 required 
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)} 
             />
-            <br></br>
+
+            <br />
             <button 
                 type="button" 
                 className="btn btn-primary mt-1" 

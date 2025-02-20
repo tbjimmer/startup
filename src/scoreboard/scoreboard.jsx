@@ -1,18 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './scoreboard.css';
 
 export function Scoreboard() {
     const [leaderboard, setLeaderboard] = useState([]);
 
+    // Function to load leaderboard data
+    const loadLeaderboard = () => {
+        const updatedData = JSON.parse(localStorage.getItem('leaderboard')) || [];
+
+        // Sort by total crates opened in descending order
+        updatedData.sort((a, b) => b.totalCrates - a.totalCrates);
+
+        setLeaderboard(updatedData);
+    };
+
     useEffect(() => {
-        const interval = setInterval(() => {
-            const updatedData = JSON.parse(localStorage.getItem('leaderboard')) || [];
-            setLeaderboard(updatedData);
-        }, 1000); // Refresh every second
-    
-        return () => clearInterval(interval);
+        loadLeaderboard(); // Load immediately on component mount
+
+        // Listen for storage changes (triggers immediately when localStorage updates)
+        const handleStorageChange = () => {
+            loadLeaderboard();
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
     }, []);
-    
 
     return (
         <div className="container">
