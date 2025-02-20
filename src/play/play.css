@@ -72,6 +72,25 @@ footer {
     align-items: center;
 }
 
+.crate-mode-selector {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Hide crate slider unless "Multiple Crates" is selected */
+.crate-slider {
+    display: none;
+    text-align: center;
+}
+
+/* When multiple mode is active, show the crate slider */
+.crate-slider.active {
+    display: block;
+}
+
 .session-info {
     background-color: #ffffff;
     padding: 10px;
@@ -169,6 +188,14 @@ table {
 table th, table td {
     padding: 10px;
     text-align: center;
+}
+
+.picture-box img {
+    width: 164px;  /* Match the smaller crates */
+    height: 164px; /* Ensure uniform height */
+    object-fit: contain; /* Maintain aspect ratio without stretching */
+    display: block;
+    margin: auto;
 }
 
 @media (max-width: 768px) {
