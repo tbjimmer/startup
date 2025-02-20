@@ -78,18 +78,29 @@ export function Play() {
     const openCrates = async (count) => {
         const crate = selectedCrate;
         const newResults = [];
-        let updatedStats = JSON.parse(localStorage.getItem('leaderboard')) || { total: 0, Rare: 0, 'Very Rare': 0, Import: 0, Exotic: 0, 'Black Market': 0 };
+    
+        // Retrieve the leaderboard or initialize it properly
+        let updatedStats = JSON.parse(localStorage.getItem('leaderboard')) || {
+            total: 0,
+            Rare: 0,
+            'Very Rare': 0,
+            Import: 0,
+            Exotic: 0,
+            'Black Market': 0
+        };
     
         for (let i = 0; i < count; i++) {
-            await new Promise(resolve => setTimeout(resolve, 50)); // Delay for animation
-            
+            if (crateMode === "multiple") {
+                await new Promise(resolve => setTimeout(resolve, 50)); // Delay only for multiple
+            }
+    
             const rarity = getRandomRarity();
             const item = getRandomItem(crate, rarity);
             const result = `${rarity} - ${item}`;
     
             newResults.push(result);
             setSessionResults(prev => [...prev, result]);
-            setRecentResults(prev => [result, ...prev].slice(0, 5)); 
+            setRecentResults(prev => [result, ...prev].slice(0, 5));
     
             // Update leaderboard stats
             updatedStats.total += 1;
@@ -97,9 +108,8 @@ export function Play() {
         }
     
         localStorage.setItem('leaderboard', JSON.stringify(updatedStats)); // Save stats locally
-        setLeaderboard(updatedStats); // Update UI dynamically
     };
-
+    
     const handleCrateModeChange = (event) => {
         setCrateMode(event.target.value);
         if (event.target.value === "single") {
@@ -110,8 +120,6 @@ export function Play() {
     const handleCrateChange = (event) => {
         setSelectedCrate(event.target.value); // No need to replace "Crate"
     };
-    
-    
 
     return (
         <div className="info">
