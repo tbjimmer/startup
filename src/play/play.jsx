@@ -99,10 +99,6 @@ export function Play() {
         localStorage.setItem('leaderboard', JSON.stringify(updatedStats)); // Save stats locally
         setLeaderboard(updatedStats); // Update UI dynamically
     };
-    
-    
-    
-    
 
     const handleCrateModeChange = (event) => {
         setCrateMode(event.target.value);

@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './scoreboard.css';
 
-export function Scoreboard () {
+export function Scoreboard() {
+    const [leaderboard, setLeaderboard] = useState([]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const updatedData = JSON.parse(localStorage.getItem('leaderboard')) || [];
+            setLeaderboard(updatedData);
+        }, 1000); // Refresh every second
+    
+        return () => clearInterval(interval);
+    }, []);
+    
+
     return (
         <div className="container">
             <h2>Scoreboard</h2>
@@ -10,50 +22,31 @@ export function Scoreboard () {
                     <tr>
                         <th>User</th>
                         <th>Crates Opened</th>
-                        <th>Rare</th>
-                        <th>Very Rare</th>
-                        <th>Import</th>
-                        <th>Exotic</th>
-                        <th>Black Market</th>
+                        <th className="rare">Rare</th>
+                        <th className="very-rare">Very Rare</th>
+                        <th className="import">Import</th>
+                        <th className="exotic">Exotic</th>
+                        <th className="black-market">Black Market</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Player3</td>
-                        <td>111</td>
-                        <td>68</td>
-                        <td>30</td>
-                        <td>8</td>
-                        <td>4</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>Player1</td>
-                        <td>88</td>
-                        <td>50</td>
-                        <td>27</td>
-                        <td>7</td>
-                        <td>3</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>Player2</td>
-                        <td>55</td>
-                        <td>34</td>
-                        <td>15</td>
-                        <td>4</td>
-                        <td>2</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td>Player4</td>
-                        <td>22</td>
-                        <td>16</td>
-                        <td>5</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
+                    {leaderboard.length > 0 ? (
+                        leaderboard.map((player, index) => (
+                            <tr key={index}>
+                                <td>{player.username}</td>
+                                <td>{player.totalCrates}</td>
+                                <td className="rare">{player.Rare}</td>
+                                <td className="very-rare">{player['Very Rare']}</td>
+                                <td className="import">{player.Import}</td>
+                                <td className="exotic">{player.Exotic}</td>
+                                <td className="black-market">{player['Black Market']}</td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="7">No data available</td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
         </div>
