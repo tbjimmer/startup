@@ -17,32 +17,32 @@ export function Play() {
     ];
 
     const crateItems = {
-        Accelerator: {
-            Rare: ['Pearlescent (Matte)', 'Critters', 'Splatter', 'Chainsaw', 'Gigapede'],
+        'Accelerator': {
+            'Rare': ['Pearlescent (Matte)', 'Critters', 'Splatter', 'Chainsaw', 'Gigapede'],
             'Very Rare': ['Gaiden', 'Hot Rocks', 'Lightning'],
-            Import: ['Jäger 619', 'Power-Shot', 'Saptarishi', 'Snakeskin'],
-            Exotic: ['Clockwork', 'Chrono'],
+            'Import': ['Jäger 619', 'Power-Shot', 'Saptarishi', 'Snakeskin'],
+            'Exotic': ['Clockwork', 'Chrono'],
             'Black Market': ['Party Time', 'Fireworks', 'Hellfire', 'Popcorn']
         },
-        Impact: {
-            Rare: ['Staredown', 'Splashback', 'Windswept', 'Sundae'],
+        'Impact': {
+            'Rare': ['Staredown', 'Splashback', 'Windswept', 'Sundae'],
             'Very Rare': ['Masato', 'Burnout', 'Migraine', 'Reaper'],
-            Import: ['Twinzer', 'Enchanter', 'Cirrus'],
-            Exotic: ['Santa Fe', 'Centro'],
+            'Import': ['Twinzer', 'Enchanter', 'Cirrus'],
+            'Exotic': ['Santa Fe', 'Centro'],
             'Black Market': ['Atomizer', 'Juiced', 'Fire God', 'Streamline']
         },
-        Turbo: {
-            Rare: ['Heiwa', 'Kawaii', 'Griffon', 'Suji', 'Aqueous'],
+        'Turbo': {
+            'Rare': ['Heiwa', 'Kawaii', 'Griffon', 'Suji', 'Aqueous'],
             'Very Rare': ['Snakeskin', 'Xenosplash', 'Septem', 'Vector'],
-            Import: ['Furry', 'Tachyon', 'Endo'],
-            Exotic: ['Roulette', 'Kalos'],
+            'Import': ['Furry', 'Tachyon', 'Endo'],
+            'Exotic': ['Roulette', 'Kalos'],
             'Black Market': ['20XX', 'Biomass', 'Hexed', 'Tora']
         },
-        Vindicator: {
-            Rare: ['Abtruse', 'Ouchie', 'Edge Burst', 'Clodhopper', 'OR-AISE'],
+        'Vindicator': {
+            'Rare': ['Abtruse', 'Ouchie', 'Edge Burst', 'Clodhopper', 'OR-AISE'],
             'Very Rare': ['Picket', 'Truncheon', 'Kana'],
-            Import: ['Apparatus', 'Sentinel', 'Ninja Star'],
-            Exotic: ['NeYoYo', 'Creeper'],
+            'Import': ['Apparatus', 'Sentinel', 'Ninja Star'],
+            'Exotic': ['NeYoYo', 'Creeper'],
             'Black Market': ['Shattered', 'Glorifier', 'Neuro-Agitator', 'Intrudium']
         }
     };    
@@ -110,7 +110,7 @@ export function Play() {
     
             const rarity = getRandomRarity();
             const item = getRandomItem(crate, rarity);
-            const result = `${rarity} - ${item}`;
+            const result = rarity + " - " + item;
     
             newResults.push(result);
             setSessionResults(prev => [...prev, result]);
