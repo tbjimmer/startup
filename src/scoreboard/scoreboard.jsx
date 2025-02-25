@@ -4,6 +4,7 @@ import './scoreboard.css';
 export function Scoreboard() {
     const [leaderboard, setLeaderboard] = useState([]);
 
+    // Load leaderboard data
     const loadLeaderboard = () => {
         const updatedData = JSON.parse(localStorage.getItem('leaderboard')) || [];
 

@@ -77,14 +77,9 @@ export function Play() {
     const openCrates = async (count) => {
         const crate = selectedCrate;
         const newResults = [];
-        const username = localStorage.getItem('username') || "Guest"; // Ensure username is set
+        const username = localStorage.getItem('username') || "Guest"; // Ensure username is set, else add guest
     
         let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-    
-        // Ensure leaderboard is always an array
-        if (!Array.isArray(leaderboard)) {
-            leaderboard = []; // Reset to an empty array if broken
-        }
     
         // Find the player's entry in the leaderboard
         let playerIndex = leaderboard.findIndex(entry => entry.username === username);
@@ -105,7 +100,7 @@ export function Play() {
     
         for (let i = 0; i < count; i++) {
             if (crateMode === "multiple") {
-                await new Promise(resolve => setTimeout(resolve, 50)); // Delay only for multiple
+                await new Promise(resolve => setTimeout(resolve, 50)); // Delay on opening multiple
             }
     
             const rarity = getRandomRarity();
@@ -233,7 +228,7 @@ export function Play() {
                 <fieldset>
                     <legend className="recent">Recent Crate Openings</legend>
                     {recentResults.map((result, i) => {
-                        const rarity = result.split(" - ")[0]; // Pull out the rarity from result
+                        const rarity = result.split(" - ")[0];
                         return (
                             <p key={i} style={{ color: rarityColors[rarity] }}>
                                 You opened ({result})

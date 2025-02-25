@@ -9,7 +9,7 @@ export function Home() {
     const handleLogin = () => {
         if (username.trim() && password.trim()) { 
             localStorage.setItem('username', username);
-            navigate('/play');  // Redirect to play page
+            navigate('/play');
         } else {
             alert('Please enter both a username and a password.');
         }
