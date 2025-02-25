@@ -54,7 +54,6 @@ export function Play() {
         "Exotic": "#ffe600",      
         "Black Market": "#d300e2"  
     };
-    
 
     const getRandomItem = (crate, rarity) => {
         const items = crateItems[crate][rarity];
