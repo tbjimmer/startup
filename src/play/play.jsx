@@ -125,8 +125,6 @@ export function Play() {
         localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
     };
     
-    
-    
     const handleCrateModeChange = (event) => {
         setCrateMode(event.target.value);
         if (event.target.value === "single") {
