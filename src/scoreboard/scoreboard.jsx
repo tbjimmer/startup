@@ -48,9 +48,9 @@ export function Scoreboard() {
                 <tbody>
                     {leaderboard.length > 0 ? (
                         leaderboard.map((player, index) => (
-                        <tr
-                        key={index}
-                        style={{ backgroundColor: player.username === currentUser ? '#ffff00' : 'green' }}
+                            <tr 
+                            key={index} 
+                            className={player.username === currentUser ? 'bold' : ''}
                         >
                             <td>{player.username}</td>
                             <td>{player.totalCrates}</td>

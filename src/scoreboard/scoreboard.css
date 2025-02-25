@@ -58,6 +58,9 @@ table tbody tr:nth-child(odd) {
 table tbody tr:nth-child(even) {
     background-color: #999898;
 }
+.bold {
+    font-weight: bold;
+}
 
 @media (max-width: 768px) {
     table {
