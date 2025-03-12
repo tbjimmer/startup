@@ -3,7 +3,7 @@ import './play.css';
 
 export function Play() {
     console.log('✅ Play component mounted!'); // Debugging log
-    
+
     const [crateCount, setCrateCount] = useState(1);
     const [crateMode, setCrateMode] = useState("single");
     const [sessionResults, setSessionResults] = useState([]); 
@@ -76,16 +76,15 @@ export function Play() {
     };
 
     const openCrates = async (count) => {
-        const crate = selectedCrate;
         const newResults = [];
-        const username = localStorage.getItem('username') || "Guest"; // Ensure username is set, else add guest
+        const username = localStorage.getItem('username') || "Guest"; // Default to "Guest" if no username
     
         let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
     
         // Find the player's entry in the leaderboard
         let playerIndex = leaderboard.findIndex(entry => entry.username === username);
     
-        // Create a new entry if user doesn't exist
+        // Create a new entry if the user doesn't exist
         if (playerIndex === -1) {
             leaderboard.push({
                 username,
@@ -101,25 +100,34 @@ export function Play() {
     
         for (let i = 0; i < count; i++) {
             if (crateMode === "multiple") {
-                await new Promise(resolve => setTimeout(resolve, 50)); // Delay on opening multiple
+                await new Promise(resolve => setTimeout(resolve, 50)); // Add delay for multiple openings
             }
     
-            const rarity = getRandomRarity();
-            const item = getRandomItem(crate, rarity);
-            const result = rarity + " - " + item;
+            try {
+                // Fetch crate result from backend
+                const response = await fetch('/api/open-crate', { method: 'POST' });
+                if (!response.ok) throw new Error(`Server error: ${response.status}`);
+                
+                const data = await response.json();
+                const result = `${data.rarity} - ${data.item}`;
     
-            newResults.push(result);
-            setSessionResults(prev => [...prev, result]);
-            setRecentResults(prev => [result, ...prev].slice(0, 5));
+                newResults.push(result);
     
-            // Update the player's stats in the leaderboard
-            leaderboard[playerIndex].totalCrates += 1;
-            leaderboard[playerIndex][rarity] += 1;
+                // ✅ Update the leaderboard stats
+                leaderboard[playerIndex].totalCrates += 1;
+                leaderboard[playerIndex][data.rarity] += 1;
+            } catch (error) {
+                console.error('Error opening crate:', error);
+            }
         }
     
-        // Save the updated leaderboard to localStorage
+        // Save updated leaderboard
         localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+    
+        setSessionResults(prev => [...prev, ...newResults]);
+        setRecentResults(prev => [...newResults, ...prev].slice(0, 5));
     };
+    
     
     const handleCrateModeChange = (event) => {
         setCrateMode(event.target.value);
