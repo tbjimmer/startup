@@ -6,29 +6,29 @@ export function Home() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    // 🚀 Helper function to validate input
+    // Helper function to validate input
     const isValidInput = (user, pass) => {
         return user.length >= 3 && pass.length >= 3 && !user.includes(" ");
     };
 
     const handleCreateAccount = () => {
         if (isValidInput(username, password)) {
-            // ✅ Load existing users from localStorage (or start with an empty object)
+            // Load existing users from localStorage (or start with an empty object)
             let users = JSON.parse(localStorage.getItem('users')) || {};
 
-            // ❌ Prevent duplicate usernames
+            // Prevent duplicate usernames
             if (users[username]) {
                 alert('Username already exists. Please choose a different one.');
                 return;
             }
 
-            // ✅ Store new user in localStorage
+            // Store new user in localStorage
             users[username] = password;
             localStorage.setItem('users', JSON.stringify(users));
 
             alert(`Account created for "${username}"! Logging you in...`);
 
-            // ✅ Log the user in automatically
+            // Log the user in automatically
             localStorage.setItem('username', username);
             navigate('/play');
         } else {
@@ -38,22 +38,22 @@ export function Home() {
 
     const handleLogin = () => {
         if (isValidInput(username, password)) {
-            // ✅ Load users from localStorage
+            // Load users from localStorage
             let users = JSON.parse(localStorage.getItem('users')) || {};
 
-            // ❌ Check if the username exists
+            // Check if the username exists
             if (!users[username]) {
                 alert('Invalid username or password.');
                 return;
             }
 
-            // ❌ Check if the password matches
+            // Check if the password matches
             if (users[username] !== password) {
                 alert('Invalid username or password.');
                 return;
             }
 
-            // ✅ Successful login
+            // Successful login
             localStorage.setItem('username', username);
             navigate('/play');
         } else {

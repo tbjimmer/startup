@@ -14,6 +14,8 @@ Converted things as best I could to .jsx files instead of .html. I kept them for
 
 Added live updates to the opening of crates. Password does not matter, only username is needed, and it attatches a personal tracker to the user. Any opened crate is stored in the scoreboard map as well as showing the most recent openings and the just opened crate. Scoreboard updates live locally and displays the amount of opened crates in a descending order of amount opened. Events update the recent opening, the scoreboards, swap the crate image depending on which crate is selected, and allows for multiple opening button to reveal a slider which determines how many crates to open at once. Logging in also directs the user automatically to the play screen.
 
+Backend will now be the one opening crates using /api/open-crate. Also added a button that will show the username when logged in and enables them to log out as well. Adjusted the header to account for this. Allowed local storage to hold data for user accounts and verifies when users enter proper credentials or create a new account. Now has seamless frontend-backend communication, where the backend now handles crate openings, and the authentication system dynamically updates the UI based on user status.
+
 <!-- Crate items & rarities
 Accelerator
 (Rare) Pearlescent (Matte)
@@ -206,11 +208,11 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
+- [X] **Node.js/Express HTTP service** - I did complete this part of the deliverable.
+- [X] **Static middleware for frontend** - I did complete this part of the deliverable.
+- [X] **Calls to third party endpoints** - I did complete this part of the deliverable.
+- [X] **Backend service endpoints** - I did complete this part of the deliverable.
+- [X] **Frontend calls service endpoints** - I did complete this part of the deliverable.
 
 ## 🚀 DB/Login deliverable
 

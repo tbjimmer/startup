@@ -10,7 +10,7 @@ import { Scoreboard } from './scoreboard/scoreboard';
 export default function App() {
     return (
         <BrowserRouter>
-            <Header /> {/* 🚀 Header component with proper alignment */}
+            <Header />
             <Routes>
                 <Route path='/' element={<Home />} exact />
                 <Route path='/play' element={<Play />} />
@@ -45,7 +45,7 @@ function Header() {
 
     const handleLogin = () => {
         const storedUser = localStorage.getItem('username');
-        setLoggedInUser(storedUser); // ✅ Update state immediately
+        setLoggedInUser(storedUser); // Update state immediately
         navigate('/'); // Redirect to home
     };
 
@@ -58,7 +58,7 @@ function Header() {
         return () => window.removeEventListener('storage', updateUser);
     }, []);
 
-    // ✅ Extra check to force state update when localStorage changes
+    // Extra check to force state update when localStorage changes
     useEffect(() => {
         setLoggedInUser(localStorage.getItem('username'));
     }, [localStorage.getItem('username')]);
@@ -75,7 +75,6 @@ function Header() {
                 <h1>CS 260 Startup</h1>
             </nav>
 
-            {/* Main navigation tabs (Centered on the page) */}
             <menu className="nav mx-auto text-center d-flex gap-4">
                 <li> <NavLink className='nav-link' to='/'>Home</NavLink> </li>
                 <li> <NavLink className='nav-link' to='/play'>Play</NavLink> </li>
@@ -83,7 +82,6 @@ function Header() {
                 <li><a href="https://github.com/tbjimmer/startup" className="nav-link px-2 link-primary">GitHub</a></li>
             </menu>
 
-            {/* User authentication section (Fixed to the right) */}
             <div className="user-auth ms-auto">
                 {loggedInUser ? (
                     <button className="btn btn-lightpink px-3 py-1" onClick={handleLogout}>

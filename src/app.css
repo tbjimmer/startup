@@ -81,12 +81,12 @@ footer {
 }
 
 .btn-lightpink {
-    background-color: #ffb6c1; /* Light pink */
+    background-color: #ffb6c1;
     color: black;
     border: none;
 }
 
 .btn-lightpink:hover {
-    background-color: #ff99aa; /* Slightly darker pink on hover */
+    background-color: #ff99aa;
 }
 

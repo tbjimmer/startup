@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './play.css';
 
 export function Play() {
-    console.log('✅ Play component mounted!'); // Debugging log
+    console.log('Play component mounted!'); // Debugging log
 
     const [crateCount, setCrateCount] = useState(1);
     const [crateMode, setCrateMode] = useState("single");
@@ -113,7 +113,7 @@ export function Play() {
     
                 newResults.push(result);
     
-                // ✅ Update the leaderboard stats
+                // Update the leaderboard stats
                 leaderboard[playerIndex].totalCrates += 1;
                 leaderboard[playerIndex][data.rarity] += 1;
             } catch (error) {
@@ -180,7 +180,7 @@ export function Play() {
                         />            
                     </fieldset>
 
-                    {/* This part ensures the slider appears only when "Multiple" is selected */}
+                    {/* Ensures the slider appears only when "Multiple" is selected */}
                     <div className="crate-slider" style={{ display: crateMode === "multiple" ? "block" : "none" }}>
                         <label htmlFor="range">Crates:</label>
                         <input 
