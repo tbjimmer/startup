@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './play.css';
 
 export function Play() {
+    console.log('✅ Play component mounted!'); // Debugging log
+    
     const [crateCount, setCrateCount] = useState(1);
     const [crateMode, setCrateMode] = useState("single");
     const [sessionResults, setSessionResults] = useState([]); 
@@ -130,6 +132,19 @@ export function Play() {
         setSelectedCrate(event.target.value);
     };
 
+    useEffect(() => {
+        console.log('Play page: Running useEffect to test backend...'); // Debugging step
+
+        fetch('/api/test')
+            .then(res => res.json())
+            .then(data => {
+                console.log('Play page backend test:', data.message);
+            })
+            .catch(err => {
+                console.error('Error:', err);
+            });
+    }, []);
+
     return (
         <div className="info">
             <h2>Open Crates</h2>
@@ -249,5 +264,6 @@ export function Play() {
 
             </div>
         </div>
+        
     );
 }
