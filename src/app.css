@@ -80,3 +80,13 @@ footer {
     flex-grow: 1; 
 }
 
+.btn-lightpink {
+    background-color: #ffb6c1; /* Light pink */
+    color: black;
+    border: none;
+}
+
+.btn-lightpink:hover {
+    background-color: #ff99aa; /* Slightly darker pink on hover */
+}
+

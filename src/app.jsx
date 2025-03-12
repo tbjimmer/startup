@@ -33,7 +33,6 @@ export default function App() {
     );
 }
 
-// ✅ Fixed Header Component (Proper alignment)
 function Header() {
     const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem('username') || null);
     const navigate = useNavigate();
@@ -44,11 +43,25 @@ function Header() {
         navigate('/');
     };
 
+    const handleLogin = () => {
+        const storedUser = localStorage.getItem('username');
+        setLoggedInUser(storedUser); // ✅ Update state immediately
+        navigate('/'); // Redirect to home
+    };
+
     useEffect(() => {
-        const updateUser = () => setLoggedInUser(localStorage.getItem('username') || null);
+        const updateUser = () => {
+            setLoggedInUser(localStorage.getItem('username'));
+        };
+
         window.addEventListener('storage', updateUser);
         return () => window.removeEventListener('storage', updateUser);
     }, []);
+
+    // ✅ Extra check to force state update when localStorage changes
+    useEffect(() => {
+        setLoggedInUser(localStorage.getItem('username'));
+    }, [localStorage.getItem('username')]);
 
     return (
         <header className="d-flex flex-wrap align-items-center justify-content-between py-3 mb-4 px-3 border-bottom border-dark border-3 rounded">
@@ -73,11 +86,11 @@ function Header() {
             {/* User authentication section (Fixed to the right) */}
             <div className="user-auth ms-auto">
                 {loggedInUser ? (
-                    <button className="btn btn-danger px-3 py-1" onClick={handleLogout}>
+                    <button className="btn btn-lightpink px-3 py-1" onClick={handleLogout}>
                         {loggedInUser} Logout
                     </button>
                 ) : (
-                    <button className="btn btn-primary px-3 py-1" onClick={() => navigate('/')}>
+                    <button className="btn btn-primary px-3 py-1" onClick={handleLogin}>
                         Sign In
                     </button>
                 )}
@@ -85,6 +98,7 @@ function Header() {
         </header>
     );
 }
+
 
 function NotFound() {
     return <h2>404 - Page Not Found</h2>;
