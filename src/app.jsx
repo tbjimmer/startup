@@ -7,8 +7,6 @@ import { Home } from './home/home';
 import { Play } from './play/play';
 import { Scoreboard } from './scoreboard/scoreboard';
 
-
-
 export default function App() {
     return(
         <BrowserRouter>

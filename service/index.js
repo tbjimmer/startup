@@ -1,13 +1,16 @@
+const express = require('express');
+const cors = require('cors');
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
-app.use(express.static('public'));
+app.get('/api/test', (req, res) => {
+  res.json({ message: "Backend working!" });
+});
 
-import { defineConfig } from 'vite';
-
-export default defineConfig({
-  server: {
-    proxy: {
-      '/api': 'http://localhost:4000',
-    },
-  },
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
