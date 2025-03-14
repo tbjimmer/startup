@@ -5,11 +5,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const port = process.argv.length > 2 ? process.argv[2] : 4000;
+const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 app.get('/api/test', (req, res) => {
-  res.json({ message: "Backend working!" });
-});
+    console.log("Received request at /api/test");
+    res.json({ message: "Backend working!" });
+  });
+  
 
 app.post('/api/open-crate', (req, res) => {
     const rarityOdds = [
