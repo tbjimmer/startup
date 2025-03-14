@@ -12,6 +12,8 @@ app.get('/api/test', (req, res) => {
     res.json({ message: "Backend working!" });
   });
   
+let apiRouter = express.Router();
+app.use(`/api`, apiRouter);
 
 app.post('/api/open-crate', (req, res) => {
     const rarityOdds = [
@@ -49,6 +51,13 @@ app.post('/api/open-crate', (req, res) => {
     console.log(`Backend opened crate: ${selectedRarity} - ${selectedItem}`);
 
     res.json({ rarity: selectedRarity, item: selectedItem });
+});
+
+app.use(express.static('public'));
+
+// 🔹 Catch-All for Unknown Routes (Prevents index.html ENOENT Error)
+app.use((_req, res) => {
+  res.status(404).send({ msg: 'Not Found' });
 });
 
 app.listen(port, () => {
