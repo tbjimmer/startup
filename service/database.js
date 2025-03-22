@@ -1,5 +1,7 @@
 const { MongoClient } = require('mongodb');
-const uri = 'your_mongo_connection_string'; // Use your actual MongoDB connection string
+const config = require('./dbConfig.json');
+
+const uri = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(uri);
 
 let database;

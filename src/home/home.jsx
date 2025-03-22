@@ -15,7 +15,7 @@ export function Home() {
         if (isValidInput(username, password)) {
             try {
                 // Send a POST request to the backend to register the user
-                const response = await fetch('http://localhost:3000/auth/register', {
+                const response = await fetch('http://localhost:4000/auth/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export function Home() {
         if (isValidInput(username, password)) {
             try {
                 // Send a POST request to the backend to log in the user
-                const response = await fetch('http://localhost:3000/auth/login', {
+                const response = await fetch('http://localhost:4000/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
