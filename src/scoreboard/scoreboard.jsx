@@ -4,30 +4,23 @@ import './scoreboard.css';
 export function Scoreboard() {
     const [leaderboard, setLeaderboard] = useState([]);
 
-    const currentUser = localStorage.getItem('username');
-
-    // Load leaderboard data
-    const loadLeaderboard = () => {
-        const updatedData = JSON.parse(localStorage.getItem('leaderboard')) || [];
-
-        updatedData.sort((a, b) => b.totalCrates - a.totalCrates);
-
-        setLeaderboard(updatedData);
+    // Load leaderboard data from the backend
+    const loadLeaderboard = async () => {
+        try {
+            const response = await fetch('/api/leaderboard');
+            if (!response.ok) {
+                throw new Error('Failed to fetch leaderboard data');
+            }
+            const data = await response.json();
+            setLeaderboard(data);
+        } catch (error) {
+            console.error('Error fetching leaderboard:', error);
+            alert('Error fetching leaderboard data from the server.');
+        }
     };
 
     useEffect(() => {
-        loadLeaderboard(); 
-
-        // Check for local storage changes
-        const handleStorageChange = () => {
-            loadLeaderboard();
-        };
-
-        window.addEventListener('storage', handleStorageChange);
-
-        return () => {
-            window.removeEventListener('storage', handleStorageChange);
-        };
+        loadLeaderboard();
     }, []);
 
     return (
@@ -48,18 +41,15 @@ export function Scoreboard() {
                 <tbody>
                     {leaderboard.length > 0 ? (
                         leaderboard.map((player, index) => (
-                            <tr 
-                            key={index} 
-                            className={player.username === currentUser ? 'bold' : ''}
-                        >
-                            <td>{player.username}</td>
-                            <td>{player.totalCrates}</td>
-                            <td className="rare">{player.Rare}</td>
-                            <td className="very-rare">{player['Very Rare']}</td>
-                            <td className="import">{player.Import}</td>
-                            <td className="exotic">{player.Exotic}</td>
-                            <td className="black-market">{player['Black Market']}</td>
-                        </tr>
+                            <tr key={index}>
+                                <td>{player.username}</td>
+                                <td>{player.totalCrates}</td>
+                                <td className="rare">{player.rare}</td>
+                                <td className="very-rare">{player.veryRare}</td>
+                                <td className="import">{player.import}</td>
+                                <td className="exotic">{player.exotic}</td>
+                                <td className="black-market">{player.blackMarket}</td>
+                            </tr>
                         ))
                     ) : (
                         <tr>
