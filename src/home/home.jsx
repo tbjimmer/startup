@@ -11,51 +11,71 @@ export function Home() {
         return user.length >= 3 && pass.length >= 3 && !user.includes(" ");
     };
 
-    const handleCreateAccount = () => {
+    const handleCreateAccount = async () => {
         if (isValidInput(username, password)) {
-            // Load existing users from localStorage (or start with an empty object)
-            let users = JSON.parse(localStorage.getItem('users')) || {};
+            try {
+                // Send a POST request to the backend to register the user
+                const response = await fetch('http://localhost:3000/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
 
-            // Prevent duplicate usernames
-            if (users[username]) {
-                alert('Username already exists. Please choose a different one.');
-                return;
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert(`Account created for "${username}"! Logging you in...`);
+
+                    // Log the user in automatically
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('token', data.token); // Save token to localStorage
+
+                    // Navigate to the play page
+                    navigate('/play');
+                } else {
+                    alert(data.msg || 'Error creating account.');
+                }
+            } catch (error) {
+                console.error('Error registering user:', error);
+                alert('Error registering user.');
             }
-
-            // Store new user in localStorage
-            users[username] = password;
-            localStorage.setItem('users', JSON.stringify(users));
-
-            alert(`Account created for "${username}"! Logging you in...`);
-
-            // Log the user in automatically
-            localStorage.setItem('username', username);
-            navigate('/play');
         } else {
             alert('Username & Password must be at least 3 characters, and username cannot contain spaces.');
         }
     };
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         if (isValidInput(username, password)) {
-            // Load users from localStorage
-            let users = JSON.parse(localStorage.getItem('users')) || {};
+            try {
+                // Send a POST request to the backend to log in the user
+                const response = await fetch('http://localhost:3000/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
 
-            // Check if the username exists
-            if (!users[username]) {
-                alert('Invalid username or password.');
-                return;
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert(`Welcome, ${data.username}!`);
+
+                    // Store the username and token
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('token', data.token); // Save token to localStorage
+
+                    // Navigate to the play page
+                    navigate('/play');
+                } else {
+                    alert(data.msg || 'Invalid username or password.');
+                }
+            } catch (error) {
+                console.error('Error logging in user:', error);
+                alert('Error logging in user.');
             }
-
-            // Check if the password matches
-            if (users[username] !== password) {
-                alert('Invalid username or password.');
-                return;
-            }
-
-            // Successful login
-            localStorage.setItem('username', username);
-            navigate('/play');
         } else {
             alert('Username & Password must be at least 3 characters, and username cannot contain spaces.');
         }
@@ -75,37 +95,37 @@ export function Home() {
     return (
         <div className="info">
             <h2>Rocket League Crate Opening Simulator</h2>
-            
+
             <label htmlFor="username">Username:</label>
-            <input 
-                type="text" 
-                id="username" 
-                required 
-                value={username} 
-                onChange={(e) => setUsername(e.target.value)} 
+            <input
+                type="text"
+                id="username"
+                required
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
             />
 
             <label htmlFor="pass">Password:</label>
-            <input 
-                type="password" 
-                id="pass" 
-                required 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
+            <input
+                type="password"
+                id="pass"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
             />
 
             <br />
-            <button 
-                type="button" 
-                className="btn btn-success mt-1 mx-2" 
+            <button
+                type="button"
+                className="btn btn-success mt-1 mx-2"
                 onClick={handleCreateAccount}
             >
                 Create Account
             </button>
 
-            <button 
-                type="button" 
-                className="btn btn-primary mt-1" 
+            <button
+                type="button"
+                className="btn btn-primary mt-1"
                 onClick={handleLogin}
             >
                 Login

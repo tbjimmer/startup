@@ -1,29 +1,47 @@
-// Import necessary modules
-const { MongoClient } = require('mongodb');  // MongoDB driver
-const config = require('./dbConfig.json');  // Import the dbConfig.json
+const { MongoClient } = require('mongodb');
+const uri = 'your_mongo_connection_string'; // Use your actual MongoDB connection string
+const client = new MongoClient(uri);
 
-// MongoDB connection string, using the values from dbConfig.json
-const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
+let database;
+let scoreCollection;
 
-// Create a new MongoClient instance
-const client = new MongoClient(url);
-
-// Database and collection names
-const db = client.db('simon');  // The name of your database (can be changed if needed)
-const userCollection = db.collection('user');  // User collection
-const scoreCollection = db.collection('score');  // Score collection
-
-// Test the connection to the database
-async function testConnection() {
-  try {
-    // Ping the database to check the connection
-    await db.command({ ping: 1 });
-    console.log(`Successfully connected to the database`);
-  } catch (ex) {
-    console.log(`Failed to connect to the database: ${ex.message}`);
-    process.exit(1);  // Exit the process if the connection fails
-  }
+async function connectDB() {
+    await client.connect();
+    database = client.db('simondb');
+    scoreCollection = database.collection('leaderboard');
 }
 
-// Call the test connection function
-testConnection();
+async function getLeaderboard() {
+    const query = {};  // Fetch all leaderboard data
+    const options = {
+        sort: { totalCrates: -1 },
+        limit: 10, // Return top 10 players
+    };
+    const cursor = scoreCollection.find(query, options);
+    return cursor.toArray();
+}
+
+async function updateLeaderboard(username, result) {
+    const leaderboard = await scoreCollection.findOne({ username });
+
+    if (leaderboard) {
+        // Update the existing player's score
+        await scoreCollection.updateOne(
+            { username },
+            { $inc: { totalCrates: 1, [result.rarity]: 1 } }
+        );
+    } else {
+        // Insert new player if they don't exist
+        await scoreCollection.insertOne({
+            username,
+            totalCrates: 1,
+            [result.rarity]: 1,
+        });
+    }
+}
+
+module.exports = {
+    connectDB,
+    getLeaderboard,
+    updateLeaderboard,
+};
