@@ -93,7 +93,7 @@ export function Play() {
     const openCrates = async (count) => {
         const newResults = [];
         const username = localStorage.getItem('username') || "Guest";
-
+    
         for (let i = 0; i < count; i++) {
             if (crateMode === "multiple") {
                 await new Promise(resolve => setTimeout(resolve, 50));
@@ -101,29 +101,32 @@ export function Play() {
             const rarity = getRandomRarity();
             const item = getRandomItem(selectedCrate, rarity);
             const result = `${rarity} - ${item}`;
-
-            try {
-                // Send crate opening result to backend to update the leaderboard
-                const response = await fetch('/api/update-leaderboard', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, result: { rarity, item } })
-                });
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+    
+            // For registered users, send the update to the backend.
+            if (username !== "Guest") {
+                try {
+                    const response = await fetch('/api/update-leaderboard', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, result: { rarity, item } })
+                    });
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                } catch (error) {
+                    console.error('Error updating leaderboard:', error);
                 }
-                newResults.push(result);
-            } catch (error) {
-                console.error('Error updating leaderboard:', error);
             }
+            // For guests, or in any case, update session results
+            newResults.push(result);
         }
-
-        // Update session results and recent results for immediate UI feedback
+    
         setSessionResults(prev => [...prev, ...newResults]);
         setRecentResults(prev => [...newResults, ...prev].slice(0, 5));
-        // Optionally, refresh leaderboard data from the backend
-        fetchLeaderboard();
-    };
+        if (username !== "Guest") {
+            fetchLeaderboard();
+        }
+    };        
 
     const handleCrateModeChange = (event) => {
         setCrateMode(event.target.value);
