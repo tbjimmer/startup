@@ -26,8 +26,13 @@ export function Home() {
                 const data = await response.json();
 
                 if (response.ok) {
-                    alert(`Account created for "${username}"! Logging you in...`);
-                    // Assume backend sets a session cookie; navigate to play page without storing in local storage
+                    alert(`Account created for "${data.username}"! Logging you in...`);
+
+                    // Log the user in automatically using backend data
+                    localStorage.setItem('username', data.username);
+                    localStorage.setItem('token', data.token); // Save token to localStorage
+
+                    // Navigate to the play page
                     navigate('/play');
                 } else {
                     alert(data.message || 'Error creating account.');
@@ -56,8 +61,13 @@ export function Home() {
                 const data = await response.json();
 
                 if (response.ok) {
-                    alert(`Welcome, ${data.username || username}!`);
-                    // Assume backend sets a session cookie; navigate to play page without storing in local storage
+                    alert(`Welcome, ${data.username}!`);
+
+                    // Store the username and token from the backend response
+                    localStorage.setItem('username', data.username);
+                    localStorage.setItem('token', data.token); // Save token to localStorage
+
+                    // Navigate to the play page
                     navigate('/play');
                 } else {
                     alert(data.message || 'Invalid username or password.');
@@ -72,7 +82,6 @@ export function Home() {
     };
 
     useEffect(() => {
-        // Test backend connectivity
         fetch('http://localhost:4000/api/test')
             .then(res => res.json())
             .then(data => {
@@ -86,6 +95,7 @@ export function Home() {
     return (
         <div className="info">
             <h2>Rocket League Crate Opening Simulator</h2>
+
             <label htmlFor="username">Username:</label>
             <input
                 type="text"
@@ -94,6 +104,7 @@ export function Home() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />
+
             <label htmlFor="pass">Password:</label>
             <input
                 type="password"
@@ -102,6 +113,7 @@ export function Home() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
+
             <br />
             <button
                 type="button"
@@ -110,6 +122,7 @@ export function Home() {
             >
                 Create Account
             </button>
+
             <button
                 type="button"
                 className="btn btn-primary mt-1"

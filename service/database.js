@@ -6,13 +6,17 @@ const client = new MongoClient(uri);
 
 let database;
 let scoreCollection;
+let userCollection; // Collection for user data
 
+// Connect to MongoDB and initialize collections
 async function connectDB() {
     await client.connect();
-    database = client.db('simondb');
+    database = client.db('cluster0');
     scoreCollection = database.collection('leaderboard');
+    userCollection = database.collection('users'); // Initialize the users collection
 }
 
+// Leaderboard functions
 async function getLeaderboard() {
     const query = {};  // Fetch all leaderboard data
     const options = {
@@ -25,7 +29,6 @@ async function getLeaderboard() {
 
 async function updateLeaderboard(username, result) {
     const leaderboard = await scoreCollection.findOne({ username });
-
     if (leaderboard) {
         // Update the existing player's score
         await scoreCollection.updateOne(
@@ -42,8 +45,29 @@ async function updateLeaderboard(username, result) {
     }
 }
 
+// User management functions
+async function getUser(username) {
+    return userCollection.findOne({ username });
+}
+
+async function addUser(user) {
+    return userCollection.insertOne(user);
+}
+
+async function updateUser(user) {
+    return userCollection.updateOne({ username: user.username }, { $set: user });
+}
+
+async function getUserByToken(token) {
+    return userCollection.findOne({ token });
+}
+
 module.exports = {
     connectDB,
     getLeaderboard,
     updateLeaderboard,
+    getUser,
+    addUser,
+    updateUser,
+    getUserByToken,
 };

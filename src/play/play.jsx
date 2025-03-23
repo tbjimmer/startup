@@ -8,7 +8,7 @@ export function Play() {
     const [crateMode, setCrateMode] = useState("single");
     const [sessionResults, setSessionResults] = useState([]); 
     const [recentResults, setRecentResults] = useState([]);
-    const [leaderboard, setLeaderboard] = useState([]); // Leaderboard data from backend
+    const [leaderboard, setLeaderboard] = useState([]); // For fetching leaderboard data (if needed)
     const [selectedCrate, setSelectedCrate] = useState("Accelerator");
 
     const rarityOdds = [
@@ -75,43 +75,7 @@ export function Play() {
         return rarityOdds[0].rarity;
     };
 
-    // Function to open crates and update the backend leaderboard
-    const openCrates = async (count) => {
-        const newResults = [];
-        const username = localStorage.getItem('username') || "Guest"; // Still using localStorage for username
-
-        for (let i = 0; i < count; i++) {
-            if (crateMode === "multiple") {
-                await new Promise(resolve => setTimeout(resolve, 50));
-            }
-            const rarity = getRandomRarity();
-            const item = getRandomItem(selectedCrate, rarity);
-            const result = `${rarity} - ${item}`;
-
-            try {
-                // Send crate opening result to backend
-                const response = await fetch('/api/update-leaderboard', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, result: { rarity, item } })
-                });
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                newResults.push(result);
-            } catch (error) {
-                console.error('Error updating leaderboard:', error);
-            }
-        }
-
-        // Update local session results for immediate feedback
-        setSessionResults(prev => [...prev, ...newResults]);
-        setRecentResults(prev => [...newResults, ...prev].slice(0, 5));
-        // Refresh leaderboard from backend
-        fetchLeaderboard();
-    };
-
-    // Function to fetch leaderboard data from the backend
+    // Function to fetch leaderboard from the backend (if needed)
     const fetchLeaderboard = async () => {
         try {
             const response = await fetch('/api/leaderboard');
@@ -126,6 +90,41 @@ export function Play() {
         }
     };
 
+    const openCrates = async (count) => {
+        const newResults = [];
+        const username = localStorage.getItem('username') || "Guest";
+
+        for (let i = 0; i < count; i++) {
+            if (crateMode === "multiple") {
+                await new Promise(resolve => setTimeout(resolve, 50));
+            }
+            const rarity = getRandomRarity();
+            const item = getRandomItem(selectedCrate, rarity);
+            const result = `${rarity} - ${item}`;
+
+            try {
+                // Send crate opening result to backend to update the leaderboard
+                const response = await fetch('/api/update-leaderboard', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, result: { rarity, item } })
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                newResults.push(result);
+            } catch (error) {
+                console.error('Error updating leaderboard:', error);
+            }
+        }
+
+        // Update session results and recent results for immediate UI feedback
+        setSessionResults(prev => [...prev, ...newResults]);
+        setRecentResults(prev => [...newResults, ...prev].slice(0, 5));
+        // Optionally, refresh leaderboard data from the backend
+        fetchLeaderboard();
+    };
+
     const handleCrateModeChange = (event) => {
         setCrateMode(event.target.value);
         if (event.target.value === "single") {
@@ -137,7 +136,6 @@ export function Play() {
         setSelectedCrate(event.target.value);
     };
 
-    // On mount, test the backend and fetch initial leaderboard data
     useEffect(() => {
         console.log('Play page: Testing backend and fetching leaderboard...');
         fetch('/api/test')
@@ -170,7 +168,7 @@ export function Play() {
                             value="multiple" 
                             checked={crateMode === "multiple"} 
                             onChange={handleCrateModeChange} 
-                        />
+                        />            
                     </fieldset>
 
                     <div className="crate-slider" style={{ display: crateMode === "multiple" ? "block" : "none" }}>
@@ -251,38 +249,13 @@ export function Play() {
                     </fieldset>
                 </section>
 
-                <section className="leaderboard">
-                    <h3>Leaderboard</h3>
-                    {leaderboard.length > 0 ? (
-                        <table className="table table-striped table-bordered text-center">
-                            <thead>
-                                <tr>
-                                    <th>User</th>
-                                    <th>Total Crates</th>
-                                    <th>Rare</th>
-                                    <th>Very Rare</th>
-                                    <th>Import</th>
-                                    <th>Exotic</th>
-                                    <th>Black Market</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {leaderboard.map((player, index) => (
-                                    <tr key={index}>
-                                        <td>{player.username}</td>
-                                        <td>{player.totalCrates}</td>
-                                        <td>{player.Rare || 0}</td>
-                                        <td>{player['Very Rare'] || 0}</td>
-                                        <td>{player.Import || 0}</td>
-                                        <td>{player.Exotic || 0}</td>
-                                        <td>{player['Black Market'] || 0}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    ) : (
-                        <p>No leaderboard data available</p>
-                    )}
+                <section className="just-opened">
+                    <p 
+                        className="opened" 
+                        style={{ color: recentResults.length > 0 ? rarityColors[recentResults[0].split(" - ")[0]] : "black" }}
+                    >
+                        {recentResults.length > 0 ? recentResults[0] : 'Open a crate!'}
+                    </p>
                 </section>
             </div>
         </div>
