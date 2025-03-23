@@ -30,7 +30,8 @@ export function Scoreboard() {
         <div className="container">
             <h2>Scoreboard</h2>
             <table className="table table-striped table-bordered text-center">
-                <thead className="thead-dark">
+                {/* Use custom header class to match Play tab header colours */}
+                <thead className="scoreboard-header">
                     <tr>
                         <th>User</th>
                         <th>Crates Opened</th>
@@ -42,12 +43,9 @@ export function Scoreboard() {
                     </tr>
                 </thead>
                 <tbody>
-                    {leaderboard.length > 0 ? (
+                    {leaderboard && leaderboard.length > 0 ? (
                         leaderboard.map((player, index) => (
-                            <tr 
-                                key={index} 
-                                className={player.username === currentUser ? 'bold' : ''}
-                            >
+                            <tr key={index} className={player.username === currentUser ? 'bold' : ''}>
                                 <td>{player.username}</td>
                                 <td>{player.totalCrates}</td>
                                 <td className="rare">{player.Rare || 0}</td>

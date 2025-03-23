@@ -62,6 +62,48 @@ table tbody tr:nth-child(even) {
     font-weight: bold;
 }
 
+/* New styling for the scoreboard header to match the session-info header from play.css */
+.scoreboard-header th {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #848484;
+    background-color: #343a40;
+    font-weight: bold;
+}
+
+/* Assign text colors for each column to match session-info header */
+.scoreboard-header th:nth-child(1) {
+    color: #ffffff;  /* For "User" */
+}
+
+.scoreboard-header th:nth-child(2) {
+    color: #ffffff;  /* For "User" */
+}
+
+.scoreboard-header th:nth-child(3) {
+    color: #5c7dff;  /* For "Crates Opened" */
+}
+
+.scoreboard-header th:nth-child(4) {
+    color: #8800ff;  /* For "Rare" */
+}
+
+.scoreboard-header th:nth-child(5) {
+    color: #ff0000;  /* For "Very Rare" */
+}
+
+.scoreboard-header th:nth-child(6) {
+    color: #ffe600;  /* For "Import" */
+}
+
+.scoreboard-header th:nth-child(7) {
+    color: #d300e2;  /* For "Exotic" */
+}
+
+.scoreboard-header th:nth-child(8) {
+    color: #d300e2;  /* For "Black Market" - adjust if desired */
+}
+
 @media (max-width: 768px) {
     table {
         font-size: 0.85em;
