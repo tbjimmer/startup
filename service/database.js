@@ -62,6 +62,10 @@ async function getUserByToken(token) {
     return userCollection.findOne({ token });
 }
 
+async function clearLeaderboard() {
+    return scoreCollection.deleteMany({});
+}
+
 module.exports = {
     connectDB,
     getLeaderboard,
@@ -70,4 +74,6 @@ module.exports = {
     addUser,
     updateUser,
     getUserByToken,
+    clearLeaderboard,
 };
+

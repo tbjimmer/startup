@@ -124,6 +124,17 @@ app.delete('/auth/logout', async (req, res) => {
   }
 });
 
+// API: Clear the leaderboard
+app.delete('/api/clear-leaderboard', async (req, res) => {
+  try {
+      await db.clearLeaderboard();
+      res.status(200).json({ message: 'Leaderboard cleared' });
+  } catch (error) {
+      console.error('Error clearing leaderboard:', error);
+      res.status(500).json({ message: 'Error clearing leaderboard' });
+  }
+});
+
 // Catch-all route for unknown paths
 app.use((_req, res) => {
   res.status(404).send({ msg: 'Not Found' });
