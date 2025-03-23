@@ -27,15 +27,10 @@ export function Home() {
 
                 if (response.ok) {
                     alert(`Account created for "${username}"! Logging you in...`);
-
-                    // Log the user in automatically
-                    localStorage.setItem('username', username);
-                    localStorage.setItem('token', data.token); // Save token to localStorage
-
-                    // Navigate to the play page
+                    // Assume backend sets a session cookie; navigate to play page without storing in local storage
                     navigate('/play');
                 } else {
-                    alert(data.msg || 'Error creating account.');
+                    alert(data.message || 'Error creating account.');
                 }
             } catch (error) {
                 console.error('Error registering user:', error);
@@ -61,16 +56,11 @@ export function Home() {
                 const data = await response.json();
 
                 if (response.ok) {
-                    alert(`Welcome, ${data.username}!`);
-
-                    // Store the username and token
-                    localStorage.setItem('username', username);
-                    localStorage.setItem('token', data.token); // Save token to localStorage
-
-                    // Navigate to the play page
+                    alert(`Welcome, ${data.username || username}!`);
+                    // Assume backend sets a session cookie; navigate to play page without storing in local storage
                     navigate('/play');
                 } else {
-                    alert(data.msg || 'Invalid username or password.');
+                    alert(data.message || 'Invalid username or password.');
                 }
             } catch (error) {
                 console.error('Error logging in user:', error);
@@ -82,7 +72,8 @@ export function Home() {
     };
 
     useEffect(() => {
-        fetch('/api/test')
+        // Test backend connectivity
+        fetch('http://localhost:4000/api/test')
             .then(res => res.json())
             .then(data => {
                 console.log('Message from backend:', data.message);
@@ -95,7 +86,6 @@ export function Home() {
     return (
         <div className="info">
             <h2>Rocket League Crate Opening Simulator</h2>
-
             <label htmlFor="username">Username:</label>
             <input
                 type="text"
@@ -104,7 +94,6 @@ export function Home() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />
-
             <label htmlFor="pass">Password:</label>
             <input
                 type="password"
@@ -113,7 +102,6 @@ export function Home() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
-
             <br />
             <button
                 type="button"
@@ -122,7 +110,6 @@ export function Home() {
             >
                 Create Account
             </button>
-
             <button
                 type="button"
                 className="btn btn-primary mt-1"

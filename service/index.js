@@ -1,12 +1,16 @@
 const express = require('express');
 const cors = require('cors');
-const db = require('./database');
-const bodyParser = require('body-parser');  // Ensure body-parser is available to parse JSON request bodies
+const db = require('./database'); // Ensure database.js exports the required functions
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcryptjs');
+const uuid = require('uuid');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.json()); // Use body-parser middleware to parse JSON bodies
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
@@ -54,17 +58,70 @@ app.get('/api/leaderboard', async (_req, res) => {
 });
 
 // Register new user
-app.post('/auth/register', (req, res) => {
-    console.log("Register request:", req.body); // Log request body to debug
-    // Insert registration logic here
+app.post('/auth/register', async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ message: "Username and password are required" });
+  }
+  try {
+    const existingUser = await db.getUser(username);
+    if (existingUser) {
+      return res.status(409).json({ message: "User already exists" });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = { username, password: hashedPassword, token: uuid.v4() };
+    await db.addUser(user);
     res.status(201).json({ message: "User registered successfully!" });
+  } catch (err) {
+    console.error('Error registering user:', err);
+    res.status(500).json({ message: 'Failed to register user' });
+  }
 });
 
 // User login
-app.post('/auth/login', (req, res) => {
-    console.log("Login request:", req.body); // Log request body to debug
-    // Insert login logic here
-    res.status(200).json({ message: "User logged in successfully!" });
+app.post('/auth/login', async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ message: "Username and password are required" });
+  }
+  try {
+    const user = await db.getUser(username);
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+    // Generate a new token for the session
+    user.token = uuid.v4();
+    await db.updateUser(user);
+    // Optionally, set a cookie (if needed) using cookie-parser
+    res.status(200).json({ message: "User logged in successfully!", username: user.username, token: user.token });
+  } catch (err) {
+    console.error('Error logging in user:', err);
+    res.status(500).json({ message: 'Login failed' });
+  }
+});
+
+// User logout
+app.delete('/auth/logout', async (req, res) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(400).json({ message: "No token provided" });
+  }
+  try {
+    const user = await db.getUserByToken(token);
+    if (user) {
+      delete user.token;
+      await db.updateUser(user);
+    }
+    res.clearCookie('token');
+    res.status(204).end();
+  } catch (err) {
+    console.error('Error during logout:', err);
+    res.status(500).json({ message: "Logout failed" });
+  }
 });
 
 // Catch-all route for unknown paths

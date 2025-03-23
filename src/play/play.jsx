@@ -8,6 +8,7 @@ export function Play() {
     const [crateMode, setCrateMode] = useState("single");
     const [sessionResults, setSessionResults] = useState([]); 
     const [recentResults, setRecentResults] = useState([]);
+    const [leaderboard, setLeaderboard] = useState([]); // Leaderboard data from backend
     const [selectedCrate, setSelectedCrate] = useState("Accelerator");
 
     const rarityOdds = [
@@ -47,7 +48,7 @@ export function Play() {
             'Exotic': ['NeYoYo', 'Creeper'],
             'Black Market': ['Shattered', 'Glorifier', 'Neuro-Agitator', 'Intrudium']
         }
-    };    
+    };
 
     const rarityColors = {
         "Rare": "#5c7dff",       
@@ -59,13 +60,12 @@ export function Play() {
 
     const getRandomItem = (crate, rarity) => {
         const items = crateItems[crate][rarity];
-        return items[Math.floor(Math.random() * items.length)]; // Random item from rarity
+        return items[Math.floor(Math.random() * items.length)];
     };
-    
+
     const getRandomRarity = () => {
         const randomNum = Math.random() * 100;
         let cumulativeChance = 0;
-    
         for (const { rarity, chance } of rarityOdds) {
             cumulativeChance += chance;
             if (randomNum <= cumulativeChance) {
@@ -75,50 +75,218 @@ export function Play() {
         return rarityOdds[0].rarity;
     };
 
+    // Function to open crates and update the backend leaderboard
     const openCrates = async (count) => {
-        const username = localStorage.getItem('username') || "Guest"; // Default to "Guest" if no username
+        const newResults = [];
+        const username = localStorage.getItem('username') || "Guest"; // Still using localStorage for username
 
         for (let i = 0; i < count; i++) {
+            if (crateMode === "multiple") {
+                await new Promise(resolve => setTimeout(resolve, 50));
+            }
             const rarity = getRandomRarity();
             const item = getRandomItem(selectedCrate, rarity);
+            const result = `${rarity} - ${item}`;
 
-            const result = { rarity, item };
-            const resultString = `${rarity} - ${item}`;
-            
-            // Update session results and recent results
-            setSessionResults(prev => [...prev, resultString]);
-            setRecentResults(prev => [resultString, ...prev].slice(0, 5));
+            try {
+                // Send crate opening result to backend
+                const response = await fetch('/api/update-leaderboard', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, result: { rarity, item } })
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                newResults.push(result);
+            } catch (error) {
+                console.error('Error updating leaderboard:', error);
+            }
+        }
 
-            // Send the result to the backend to update the MongoDB leaderboard
-            await fetch('/api/update-leaderboard', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username,
-                    result: { rarity }  // Assuming you only want to send rarity for now
-                }),
-            });
+        // Update local session results for immediate feedback
+        setSessionResults(prev => [...prev, ...newResults]);
+        setRecentResults(prev => [...newResults, ...prev].slice(0, 5));
+        // Refresh leaderboard from backend
+        fetchLeaderboard();
+    };
+
+    // Function to fetch leaderboard data from the backend
+    const fetchLeaderboard = async () => {
+        try {
+            const response = await fetch('/api/leaderboard');
+            if (response.ok) {
+                const data = await response.json();
+                setLeaderboard(data);
+            } else {
+                console.error('Failed to fetch leaderboard. Status:', response.status);
+            }
+        } catch (error) {
+            console.error('Error fetching leaderboard:', error);
         }
     };
 
+    const handleCrateModeChange = (event) => {
+        setCrateMode(event.target.value);
+        if (event.target.value === "single") {
+            setCrateCount(1);
+        }
+    };
+
+    const handleCrateChange = (event) => {
+        setSelectedCrate(event.target.value);
+    };
+
+    // On mount, test the backend and fetch initial leaderboard data
     useEffect(() => {
-        console.log('Play page: Running useEffect to test backend...'); // Debugging step
+        console.log('Play page: Testing backend and fetching leaderboard...');
         fetch('/api/test')
             .then(res => res.json())
-            .then(data => {
-                console.log('Play page backend test:', data.message);
-            })
-            .catch(err => {
-                console.error('Error:', err);
-            });
+            .then(data => console.log('Backend test:', data.message))
+            .catch(err => console.error('Error in backend test:', err));
+        fetchLeaderboard();
     }, []);
 
     return (
         <div className="info">
             <h2>Open Crates</h2>
-            {/* Your existing UI components for crate opening */}
+            <div className="grid-container">
+                <section className="crate-selection">
+                    <fieldset className="crate-mode-selector">
+                        <label htmlFor="single">Single Crate</label>
+                        <input 
+                            type="radio" 
+                            id="single" 
+                            name="crateMode" 
+                            value="single" 
+                            checked={crateMode === "single"} 
+                            onChange={handleCrateModeChange} 
+                        />
+                        <label htmlFor="multiple">Multiple Crates</label>
+                        <input 
+                            type="radio" 
+                            id="multiple" 
+                            name="crateMode" 
+                            value="multiple" 
+                            checked={crateMode === "multiple"} 
+                            onChange={handleCrateModeChange} 
+                        />
+                    </fieldset>
+
+                    <div className="crate-slider" style={{ display: crateMode === "multiple" ? "block" : "none" }}>
+                        <label htmlFor="range">Crates:</label>
+                        <input 
+                            type="range" 
+                            id="range" 
+                            min="1" 
+                            max="100" 
+                            step="1" 
+                            value={crateCount} 
+                            onChange={(e) => setCrateCount(Number(e.target.value))}
+                        />
+                        <output id="rangeOutput">{crateCount}</output>
+                    </div>
+
+                    <div>
+                        <label htmlFor="select">Select: </label>
+                        <select id="select" name="varSelect" value={selectedCrate} onChange={handleCrateChange}>
+                            <option value="Accelerator">Accelerator</option>
+                            <option value="Impact">Impact</option>
+                            <option value="Turbo">Turbo</option>
+                            <option value="Vindicator">Vindicator</option>
+                        </select>
+
+                        <div id="crate-image" className="picture-box">
+                            <img 
+                                src={`${selectedCrate.replace(' Crate', '').toLowerCase()}.jpg`} 
+                                alt={selectedCrate} 
+                            />
+                        </div>
+                        <button
+                            type="button"
+                            className="btn btn-success mt-1"
+                            onClick={() => openCrates(crateCount)}
+                        >
+                            Open
+                        </button>
+                    </div>
+                </section>
+
+                <section className="session-info">
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>Session Total</th>
+                                <th>Rare</th>
+                                <th>Very Rare</th>
+                                <th>Import</th>
+                                <th>Exotic</th>
+                                <th>Black Market</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{sessionResults.length}</td>
+                                <td>{sessionResults.filter(r => r.startsWith('Rare')).length}</td>
+                                <td>{sessionResults.filter(r => r.startsWith('Very Rare')).length}</td>
+                                <td>{sessionResults.filter(r => r.startsWith('Import')).length}</td>
+                                <td>{sessionResults.filter(r => r.startsWith('Exotic')).length}</td>
+                                <td>{sessionResults.filter(r => r.startsWith('Black Market')).length}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section className="recent-openings">
+                    <fieldset>
+                        <legend className="recent">Recent Crate Openings</legend>
+                        {recentResults.map((result, i) => {
+                            const rarity = result.split(" - ")[0];
+                            return (
+                                <p key={i} style={{ color: rarityColors[rarity] }}>
+                                    You opened ({result})
+                                </p>
+                            );
+                        })}
+                    </fieldset>
+                </section>
+
+                <section className="leaderboard">
+                    <h3>Leaderboard</h3>
+                    {leaderboard.length > 0 ? (
+                        <table className="table table-striped table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Total Crates</th>
+                                    <th>Rare</th>
+                                    <th>Very Rare</th>
+                                    <th>Import</th>
+                                    <th>Exotic</th>
+                                    <th>Black Market</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {leaderboard.map((player, index) => (
+                                    <tr key={index}>
+                                        <td>{player.username}</td>
+                                        <td>{player.totalCrates}</td>
+                                        <td>{player.Rare || 0}</td>
+                                        <td>{player['Very Rare'] || 0}</td>
+                                        <td>{player.Import || 0}</td>
+                                        <td>{player.Exotic || 0}</td>
+                                        <td>{player['Black Market'] || 0}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <p>No leaderboard data available</p>
+                    )}
+                </section>
+            </div>
         </div>
     );
 }
+
+export default Play;
