@@ -90,19 +90,17 @@ export function Play() {
         }
     };
 
-    const openCrates = async (count) => {
-        const newResults = [];
+    const openCrates = (count) => {
         const username = localStorage.getItem('username') || "Guest";
+        let processed = 0;
     
-        for (let i = 0; i < count; i++) {
-            if (crateMode === "multiple") {
-                await new Promise(resolve => setTimeout(resolve, 50));
-            }
+        // Recursive function to process one crate at a time
+        const processCrate = async () => {
             const rarity = getRandomRarity();
             const item = getRandomItem(selectedCrate, rarity);
             const result = `${rarity} - ${item}`;
     
-            // For registered users, send the update to the backend.
+            // For registered users, send the update to the backend
             if (username !== "Guest") {
                 try {
                     const response = await fetch('/api/update-leaderboard', {
@@ -111,22 +109,31 @@ export function Play() {
                         body: JSON.stringify({ username, result: { rarity, item } })
                     });
                     if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                        console.error(`HTTP error! status: ${response.status}`);
                     }
                 } catch (error) {
                     console.error('Error updating leaderboard:', error);
                 }
             }
-            // For guests, or in any case, update session results
-            newResults.push(result);
-        }
     
-        setSessionResults(prev => [...prev, ...newResults]);
-        setRecentResults(prev => [...newResults, ...prev].slice(0, 5));
-        if (username !== "Guest") {
-            fetchLeaderboard();
-        }
-    };        
+            // Update session results and recent results for immediate UI feedback
+            setSessionResults(prev => [...prev, result]);
+            setRecentResults(prev => [result, ...prev].slice(0, 5));
+    
+            processed++;
+            if (processed < count) {
+                // Wait 100ms (approx. 10 crates per second) before processing the next crate
+                setTimeout(processCrate, 100);
+            } else {
+                // After all crates are processed, refresh the leaderboard if registered
+                if (username !== "Guest") {
+                    fetchLeaderboard();
+                }
+            }
+        };
+    
+        processCrate();
+    };           
 
     const handleCrateModeChange = (event) => {
         setCrateMode(event.target.value);
