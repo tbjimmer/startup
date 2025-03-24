@@ -16,6 +16,9 @@ Added live updates to the opening of crates. Password does not matter, only user
 
 Backend will now be the one opening crates using /api/open-crate. Also added a button that will show the username when logged in and enables them to log out as well. Adjusted the header to account for this. Allowed local storage to hold data for user accounts and verifies when users enter proper credentials or create a new account. Now has fluid frontend-backend communication, where the backend now handles crate openings, and the authentication system dynamically updates the UI based on user status.
 
+
+All data storage is now handled by MongoDB.The frontend updates between each opening of 'multiple cases' instead of once at the end of all of them. Guest data is not stored in the database, although they can access the rest of the program. Signing in hashes the credentials to maintain security as well. Also added a function I can call to wipe the leaderboard entirely. 
+
 <!-- Crate items & rarities
 Accelerator
 (Rare) Pearlescent (Matte)
@@ -218,11 +221,11 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **User registration** - I did not complete this part of the deliverable.
-- [ ] **User login and logout** - I did not complete this part of the deliverable.
-- [ ] **Stores data in MongoDB** - I did not complete this part of the deliverable.
-- [ ] **Stores credentials in MongoDB** - I did not complete this part of the deliverable.
-- [ ] **Restricts functionality based on authentication** - I did not complete this part of the deliverable.
+- [X] **User registration** - I did complete this part of the deliverable.
+- [X] **User login and logout** - I did complete this part of the deliverable.
+- [X] **Stores data in MongoDB** - I did complete this part of the deliverable.
+- [X] **Stores credentials in MongoDB** - I did complete this part of the deliverable.
+- [X] **Restricts functionality based on authentication** - I did complete this part of the deliverable.
 
 ## 🚀 WebSocket deliverable
 
