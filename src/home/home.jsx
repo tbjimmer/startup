@@ -15,7 +15,7 @@ export function Home() {
         if (isValidInput(username, password)) {
             try {
                 // Send a POST request to the backend to register the user
-                const response = await fetch('http://localhost:4000/auth/register', {
+                const response = await fetch('/auth/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export function Home() {
         if (isValidInput(username, password)) {
             try {
                 // Send a POST request to the backend to log in the user
-                const response = await fetch('http://localhost:4000/auth/login', {
+                const response = await fetch('/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ export function Home() {
     };
 
     useEffect(() => {
-        fetch('http://localhost:4000/api/test')
+        fetch('/api/test')
             .then(res => res.json())
             .then(data => {
                 console.log('Message from backend:', data.message);

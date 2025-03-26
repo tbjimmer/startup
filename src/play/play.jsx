@@ -122,8 +122,8 @@ export function Play() {
     
             processed++;
             if (processed < count) {
-                // Wait 100ms (approx. 10 crates per second) before processing the next crate
-                setTimeout(processCrate, 100);
+                // Wait 50 ms (approx. 20 crates per second) before processing the next crate
+                setTimeout(processCrate, 50);
             } else {
                 // After all crates are processed, refresh the leaderboard if registered
                 if (username !== "Guest") {
