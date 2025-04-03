@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './play.css';
+import { CrateEventNotifier } from './crateNotifier';
 
 export function Play() {
     console.log('Play component mounted!'); // Debugging log
@@ -99,6 +100,10 @@ export function Play() {
             const rarity = getRandomRarity();
             const item = getRandomItem(selectedCrate, rarity);
             const result = `${rarity} - ${item}`;
+
+            if (username !== "Guest" && window.crateNotifier) {
+                window.crateNotifier.broadcastCrateOpen(`${rarity} - ${item}`);
+            }
     
             // For registered users, send the update to the backend
             if (username !== "Guest") {
@@ -154,6 +159,24 @@ export function Play() {
             .catch(err => console.error('Error in backend test:', err));
         fetchLeaderboard();
     }, []);
+
+    useEffect(() => {
+        const username = localStorage.getItem('username') || 'Guest';
+        const notifier = new CrateEventNotifier(username);
+        window.crateNotifier = notifier;
+    
+        notifier.addHandler((event) => {
+            if (event.type === 'crateOpen') {
+                console.log(`🎁 ${event.from} got: ${event.value}`);
+                setRecentResults(prev => [`${event.from} got: ${event.value}`, ...prev].slice(0, 5));
+            } else if (event.type === 'system') {
+                console.log(`🔔 ${event.value}`);
+            }
+        });
+    
+        return () => notifier.removeHandler(); // cleanup on unmount
+    }, []);
+    
 
     return (
         <div className="info">

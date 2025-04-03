@@ -18,6 +18,8 @@ const CrateEvent = {
     constructor(username) {
       const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
       this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+      console.log('🔌 Attempting WebSocket connection...');
+
       this.username = username;
   
       this.socket.onopen = () => {
