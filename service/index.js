@@ -5,8 +5,11 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
-
+const { peerProxy } = require('./peerProxy');
+const http = require('http');
 const app = express();
+const httpServer = http.createServer(app);
+
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
@@ -140,6 +143,9 @@ app.use((_req, res) => {
   res.status(404).send({ msg: 'Not Found' });
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+
+httpServer.listen(port, () => {
+  console.log(`🚀 Listening on port ${port}`);
 });
+
+peerProxy(httpServer);
