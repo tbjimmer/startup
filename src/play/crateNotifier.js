@@ -53,6 +53,8 @@ const CrateEvent = {
   
     receiveEvent(event) {
       // Push and handle incoming events
+      this.events.push(event);
+      this.handlers.forEach((handler)=>handler(event));
       };
     }
   
