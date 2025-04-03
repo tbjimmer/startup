@@ -167,12 +167,16 @@ export function Play() {
     
         notifier.addHandler((event) => {
             if (event.type === 'crateOpen') {
-                console.log(`🎁 ${event.from} got: ${event.value}`);
-                setRecentResults(prev => [`${event.from} got: ${event.value}`, ...prev].slice(0, 5));
+              const [rarity, item] = event.value.split(' - ');
+              const entry = {
+                text: `${event.from} opened ${item}`,
+                rarity: rarity,
+              };
+              setRecentResults(prev => [entry, ...prev].slice(0, 5));
             } else if (event.type === 'system') {
-                console.log(`🔔 ${event.value}`);
+              console.log(`${event.value}`);
             }
-        });
+          });
     
         return () => notifier.removeHandler(); // cleanup on unmount
     }, []);
@@ -271,14 +275,11 @@ export function Play() {
                 <section className="recent-openings">
                     <fieldset>
                         <legend className="recent">Recent Crate Openings</legend>
-                        {recentResults.map((result, i) => {
-                            const rarity = result.split(" - ")[0];
-                            return (
-                                <p key={i} style={{ color: rarityColors[rarity] }}>
-                                    You opened ({result})
-                                </p>
-                            );
-                        })}
+                        {recentResults.map((result, i) => (
+                            <p key={i} style={{ color: rarityColors[result.rarity] || 'black' }}>
+                                {result.text}
+                            </p>
+                        ))}
                     </fieldset>
                 </section>
 

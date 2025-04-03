@@ -1,8 +1,8 @@
-const { WebSocketServer } = require('ws');
+const WebSocket = require('ws');
 
 function peerProxy(httpServer) {
   // Create a WebSocket server attached to the HTTP server
-  const socketServer = new WebSocketServer({ server: httpServer });
+  const socketServer = new WebSocket.Server({ server: httpServer });
 
   socketServer.on('connection', (socket) => {
     console.log('🔥 WebSocket client connected!');

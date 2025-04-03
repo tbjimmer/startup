@@ -33,10 +33,13 @@ const CrateEvent = {
       };
   
       this.socket.onmessage = async (msg) => {
-        // Parse message and call receiveEvent
-        const event = JSON.parse(await msg.data.text());
-        this.receiveEvent(event);
-      };
+        try {
+          const event = JSON.parse(await msg.data.text());
+          this.receiveEvent(event);
+        } catch (err) {
+          console.error('Failed to parse WebSocket message:', err);
+        }
+      };      
     }
   
     broadcastCrateOpen(crateItem) {
