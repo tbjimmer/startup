@@ -1,10 +1,8 @@
-// events
 const CrateEvent = {
     System: 'system',
     Open: 'crateOpen',
   };
-
-// message constructor
+  
   class CrateMessage {
     constructor(from, type, value) {
       this.from = from;
@@ -12,8 +10,7 @@ const CrateEvent = {
       this.value = value;
     }
   }
-
-// internalize
+  
   class CrateEventNotifier {
     events = [];
     handlers = [];
@@ -24,43 +21,33 @@ const CrateEvent = {
       this.username = username;
   
       this.socket.onopen = () => {
-        this.receiveEvent(new CrateMessage('System', CrateEvent.System, `${this.username} connected`));
+        // Trigger connection message
       };
   
       this.socket.onclose = () => {
-        this.receiveEvent(new CrateMessage('System', CrateEvent.System, `${this.username} disconnected`));
+        // Trigger disconnection message
       };
   
       this.socket.onmessage = async (msg) => {
-        try {
-          const event = JSON.parse(await msg.data.text());
-          this.receiveEvent(event);
-        } catch (err) {
-          console.error('Invalid WebSocket message', err);
-        }
+        // Parse message and call receiveEvent
       };
     }
-
-// send message when new crate is opened
+  
     broadcastCrateOpen(crateItem) {
-      const event = new CrateMessage(this.username, CrateEvent.Open, crateItem);
-      this.socket.send(JSON.stringify(event));
+      // Create a CrateMessage and send it to server
     }
- 
-// add handler
+  
     addHandler(handler) {
       this.handlers.push(handler);
     }
   
-// remove handler
     removeHandler(handler) {
       this.handlers = this.handlers.filter((h) => h !== handler);
     }
-
-// receive handles  
+  
     receiveEvent(event) {
-      this.events.push(event);
-      this.handlers.forEach((handler) => handler(event));
+      // Push and handle incoming events
+      });
     }
   }
   
