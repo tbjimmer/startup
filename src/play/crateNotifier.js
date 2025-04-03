@@ -22,19 +22,25 @@ const CrateEvent = {
   
       this.socket.onopen = () => {
         // Trigger connection message
+        this.receiveEvent(new CrateMessage('System', CrateEvent.System, `${this.username} connected`));
       };
   
       this.socket.onclose = () => {
         // Trigger disconnection message
+        this.receiveEvent(new CrateMessage('System', CrateEvent.System, `${this.username} disconnected`));
       };
   
       this.socket.onmessage = async (msg) => {
         // Parse message and call receiveEvent
+        const event = JSON.parse(await msg.data.text());
+        this.receiveEvent(event);
       };
     }
   
     broadcastCrateOpen(crateItem) {
       // Create a CrateMessage and send it to server
+      const event = new CrateMessage(this.username, CrateEvent.Open, crateItem);
+      this.socket.send(JSON.stringify(event));
     }
   
     addHandler(handler) {
@@ -47,9 +53,8 @@ const CrateEvent = {
   
     receiveEvent(event) {
       // Push and handle incoming events
-      });
+      };
     }
-  }
   
   export { CrateEvent, CrateEventNotifier };
   
