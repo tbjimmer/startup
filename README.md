@@ -6,18 +6,26 @@ A mimicry of Rocket League's old crate opening system where a user earns one of 
 
 Site: http://timmyr.click
 
+HTML:
 HTML links index (Home), play (Play), and scoreboard (Scoreboard) pages. Index is a simple login page requiring a username and password. Play is where the crates are selected, amount is chosen, and session total for each rarity is displayed. It also shows live updates on what other players have pulled from their crates. Scoreboard displays the totals for each username and each of their crate rarities opened. Placeholder image is set, and deployFiles exist.
 
+CSS:
 CSS creates a gradient background, places objects in a flex position, and in a grid on play.html. Everything is ordered properly on play.html in their respective grid boxes. Scoreboard table is centralized and allows reading it to be clear and easy. Bootstrap makes an identical and clean looking header and footer across all pages. Header includes project title and logo, which link back to the home page, and both header and footer link to all other pages, including github. Resizing the page isn't perfect, but works rather well for all devices and lets them all be properly functionable. All future pictures that will be used are now available.
 
+React 1:
 Converted things as best I could to .jsx files instead of .html. I kept them for reference, but they are not used in anything. My main issues involve the header and footer always being fickle, and I regret mixing so much Bootstrap with CSS. Overall, the project is fully functional on all devices, but breaks when put to the extremes. Everything works as intended.
 
+React 2:
 Added live updates to the opening of crates. Password does not matter, only username is needed, and it attatches a personal tracker to the user. Any opened crate is stored in the scoreboard map as well as showing the most recent openings and the just opened crate. Scoreboard updates live locally and displays the amount of opened crates in a descending order of amount opened. Events update the recent opening, the scoreboards, swap the crate image depending on which crate is selected, and allows for multiple opening button to reveal a slider which determines how many crates to open at once. Logging in also directs the user automatically to the play screen.
 
+Service:
 Backend will now be the one opening crates using /api/open-crate. Also added a button that will show the username when logged in and enables them to log out as well. Adjusted the header to account for this. Allowed local storage to hold data for user accounts and verifies when users enter proper credentials or create a new account. Now has fluid frontend-backend communication, where the backend now handles crate openings, and the authentication system dynamically updates the UI based on user status.
 
-
+DB/Login:
 All data storage is now handled by MongoDB.The frontend updates between each opening of 'multiple cases' instead of once at the end of all of them. Guest data is not stored in the database, although they can access the rest of the program. Signing in hashes the credentials to maintain security as well. Also added a function I can call to wipe the leaderboard entirely. 
+
+Websocket:
+The WebSocket connection is initialized when the user lands on the play page, and automatically disconnects when the page is closed or refreshed. WebSocket now successfully connects all users in real-time. When a crate is opened, a message is broadcast containing the username, item name, and rarity. This is displayed on the global feed for all users. Messages are parsed from JSON and routed through client-side handlers. Each user also sees their own most recent crate in the "just opened" section. Guests can open crates and participate in the global feed, but their data is not persisted to the leaderboard. 
 
 <!-- Crate items & rarities
 Accelerator
@@ -231,8 +239,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [X] **Backend listens for WebSocket connection** - I did complete this part of the deliverable.
+- [X] **Frontend makes WebSocket connection** - I did complete this part of the deliverable.
+- [X] **Data sent over WebSocket connection** - I did complete this part of the deliverable.
+- [X] **WebSocket data displayed** - I did complete this part of the deliverable.
+- [X] **Application is fully functional** - I did complete this part of the deliverable.
