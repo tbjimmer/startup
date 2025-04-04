@@ -101,7 +101,7 @@ export function Play() {
             const item = getRandomItem(selectedCrate, rarity);
             const result = `${rarity} - ${item}`;
 
-            if (username !== "Guest" && window.crateNotifier) {
+            if (window.crateNotifier) {
                 window.crateNotifier.broadcastCrateOpen(`${rarity} - ${item}`);
             }
     
@@ -172,6 +172,10 @@ export function Play() {
                 text: `${event.from} opened ${item}`,
                 rarity: rarity,
               };
+              // gpt aid
+              console.log('📥 Received crate event:', event);
+              console.log('📝 Storing recent result:', entry);
+              
               setRecentResults(prev => [entry, ...prev].slice(0, 5));
             } else if (event.type === 'system') {
               console.log(`${event.value}`);
@@ -276,12 +280,13 @@ export function Play() {
                     <fieldset>
                         <legend className="recent">Recent Crate Openings</legend>
                         {recentResults.map((result, i) => (
-                            <p key={i} style={{ color: rarityColors[result.rarity] || 'black' }}>
-                                {result.text}
-                            </p>
+                        <p key={i} style={{ color: rarityColors[result.rarity] || 'black' }}>
+                            {result.text}
+                        </p>
                         ))}
                     </fieldset>
-                </section>
+                </section>          
+
 
                 <section className="just-opened">
                     <p 
