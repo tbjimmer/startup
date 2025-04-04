@@ -8,9 +8,10 @@ export function Play() {
     const [crateCount, setCrateCount] = useState(1);
     const [crateMode, setCrateMode] = useState("single");
     const [sessionResults, setSessionResults] = useState([]); 
-    const [recentResults, setRecentResults] = useState([]);
-    const [leaderboard, setLeaderboard] = useState([]); // For fetching leaderboard data (if needed)
+    const [leaderboard, setLeaderboard] = useState([]);
     const [selectedCrate, setSelectedCrate] = useState("Accelerator");
+    const [globalCrateFeed, setGlobalCrateFeed] = useState([]);
+    const [lastUserCrate, setLastUserCrate] = useState(null);
 
     const rarityOdds = [
         { rarity: 'Rare', chance: 55 },
@@ -102,13 +103,20 @@ export function Play() {
             const result = `${rarity} - ${item}`;
 
             if (window.crateNotifier) {
-                window.crateNotifier.broadcastCrateOpen(`${rarity} - ${item}`);
-            }
+                const crateMessage = `${rarity} - ${item}`;
+                window.crateNotifier.broadcastCrateOpen(crateMessage);
+              
+                window.crateNotifier.receiveEvent({
+                  from: username,
+                  type: "crateOpen",
+                  value: crateMessage,
+                });
+              }
     
             // For registered users, send the update to the backend
             if (username !== "Guest") {
                 try {
-                    const response = await fetch('/api/update-leaderboard', {
+                    const response = fetch('/api/update-leaderboard', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ username, result: { rarity, item } })
@@ -123,12 +131,11 @@ export function Play() {
     
             // Update session results and recent results for immediate UI feedback
             setSessionResults(prev => [...prev, result]);
-            setRecentResults(prev => [result, ...prev].slice(0, 5));
-    
+
             processed++;
             if (processed < count) {
                 // Wait 50 ms (approx. 20 crates per second) before processing the next crate
-                setTimeout(processCrate, 50);
+                setTimeout(processCrate, 100);
             } else {
                 // After all crates are processed, refresh the leaderboard if registered
                 if (username !== "Guest") {
@@ -168,24 +175,28 @@ export function Play() {
         notifier.addHandler((event) => {
             if (event.type === 'crateOpen') {
               const [rarity, item] = event.value.split(' - ');
+              const username = localStorage.getItem('username') || 'Guest';
+              const isMine = event.from === username;
+          
               const entry = {
-                text: `${event.from} opened ${item}`,
-                rarity: rarity,
+                text: isMine ? `You opened ${item}` : `${event.from} opened ${item}`,
+                rarity,
               };
-              // gpt aid
-              console.log('📥 Received crate event:', event);
-              console.log('📝 Storing recent result:', entry);
-              
-              setRecentResults(prev => [entry, ...prev].slice(0, 5));
-            } else if (event.type === 'system') {
-              console.log(`${event.value}`);
-            }
-          });
-    
-        return () => notifier.removeHandler(); // cleanup on unmount
+          
+              // Update global crate feed 
+              setGlobalCrateFeed(prev => [entry, ...prev].slice(0, 5));
+          
+              // Only update your "just opened" section ONLY if it's your crate
+                if (isMine) {
+                    setLastUserCrate(entry);
+                }
+                else if (event.type === 'system') {
+                    console.log(`🔔 ${event.value}`);
+                }
+            } 
+        });
     }, []);
-    
-
+        
     return (
         <div className="info">
             <h2>Open Crates</h2>
@@ -279,23 +290,23 @@ export function Play() {
                 <section className="recent-openings">
                     <fieldset>
                         <legend className="recent">Recent Crate Openings</legend>
-                        {recentResults.map((result, i) => (
+                        {globalCrateFeed.map((result, i) => (
                         <p key={i} style={{ color: rarityColors[result.rarity] || 'black' }}>
                             {result.text}
                         </p>
                         ))}
                     </fieldset>
-                </section>          
-
+                </section>
 
                 <section className="just-opened">
                     <p 
                         className="opened" 
-                        style={{ color: recentResults.length > 0 ? rarityColors[recentResults[0].split(" - ")[0]] : "black" }}
+                        style={{ color: lastUserCrate ? rarityColors[lastUserCrate.rarity] : "black" }}
                     >
-                        {recentResults.length > 0 ? recentResults[0] : 'Open a crate!'}
+                        {lastUserCrate ? lastUserCrate.text : "Open a crate!"}
                     </p>
                 </section>
+
             </div>
         </div>
     );
